@@ -1,0 +1,51 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# AI Rules for DailyPost
+
+DailyPost is a modern application for creating, editing and managing posts using AI technology. The frontend is based on Next.js 15, React 19, TypeScript 5, Tailwind CSS 4 and Shadcn/ui library, which guarantees a fast, responsive and aesthetically pleasing interface. The backend is implemented using Supabase, which offers a PostgreSQL database, authorization mechanisms and Backend-as-a-Service functionality. Integration with openrouter.ai allows communication with multiple AI models to generate content, and the CI/CD process is supported by Github Actions and deployment using Coolify.
+
+## Tech Stack
+
+- Next.js 15
+- React 19
+- TypeScript 5
+- Tailwind 4
+- Shadcn/ui
+- Supabase
+
+
+## Project Structure
+
+When introducing changes to the project, always follow the directory structure below:
+
+- `./src` - source code
+- `./src/app` - Next.js pages and page configuration
+- `./src/actions.ts` - Next.js server actions
+- `./src/middleware.ts` - Next.js middleware
+- `./src/utils/supabase` - Supabase utils (configuration, supabase middleware)
+- `./src/utils/utils.ts` -  Shared reusable utility function for both backend and frontend
+- `./src/types.ts` - Shared types for backend and frontend 
+- `./src/components` - Client-side and Server-side Components written React
+- `./src/components/ui` - Client-side components from Shadcn/ui
+- `./src/lib` - Services and helpers 
+- `./src/assets` - static internal assets
+- `./public` - public assets
+
+When modifying the directory structure, always update this section.
+
+## Coding practices
+
+### Guidelines for clean code
+
+- Use feedback from linters to improve the code when making changes.
+- Prioritize error handling and edge cases.
+- Handle errors and edge cases at the beginning of functions.
+- Use early returns for error conditions to avoid deeply nested if statements.
+- Place the happy path last in the function for improved readability.
+- Avoid unnecessary else statements; use if-return pattern instead.
+- Use guard clauses to handle preconditions and invalid states early.
+- Implement proper error logging and user-friendly error messages.
+- Consider using custom error types or error factories for consistent error handling.
