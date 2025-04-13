@@ -22,6 +22,7 @@ Użytkownicy poszukują narzędzia, które umożliwi:
 - Dodawanie tytułu, kategorii (z predefiniowanej listy lub poprzez dodanie nowej) przy tworzeniu postu.
 - Przechowywanie historii postów wraz z metadanymi: datą utworzenia, datą aktualizacji, tytułem oraz kategorią, z możliwością sortowania i filtrowania.
 - Integracja z mechanizmami udostępniania postów na platformach takich jak X i Facebook przez generowanie URL z odpowiednimi parametrami.
+- Możliwość łatwego kopiowania wygenerowanego posta za pomocą dedykowanego przycisku – dostępnego zarówno tuż po wygenerowaniu, jak i w historii postów.
 - System powiadomień informujący o przekroczeniu limitów znaków (500 znaków dla promptu, 1000 znaków dla treści postu) oraz innych ważnych komunikatach.
 - Bezpieczny system logowania oparty na mechanizmach autentykacji oferowanych przez Supabase.
 
@@ -48,7 +49,7 @@ Użytkownicy poszukują narzędzia, które umożliwi:
   Opis: Jako użytkownik chcę, aby system automatycznie generował posty przy użyciu GPT-4o mini, co pozwoli mi szybko otrzymać bazowy tekst do dalszej edycji.
   Kryteria akceptacji:
 
-  - Po zalogowaniu użytkownik podaje kategorie oraz swój krótki opis posta np. z datą i krótkim opisem a następnie po naciśnięciu przycisku "Generuj" system za pomocą integracji z openrouter (GPT-4o mini) generuje finalny post.
+  - Po zalogowaniu użytkownik wybiera kategorię, wpisuje krótki opis posta (np. z datą i kontekstem), ustawia długość posta za pomocą suwaka (krótki / średni / długi), a następnie po kliknięciu „Generuj” system – wykorzystując integrację z OpenRouter (GPT-4o mini) – generuje finalną wersję posta
   - Wygenerowany post jest wyświetlany z możliwością dalszej, swobodnej edycji.
 
 - ID: US-003
@@ -80,8 +81,8 @@ Użytkownicy poszukują narzędzia, które umożliwi:
   Opis: Jako użytkownik chcę móc przypisywać tytuły oraz kategorie do postów, aby ułatwić ich organizację i późniejsze wyszukiwanie.
   Kryteria akceptacji:
 
-  - Formularz tworzenia postu zawiera pola na tytuł oraz kategorie oraz prompt użytkownika.
-  - Dodane tytuły i kategorie oraz finalna treść zapisanego posta są widoczne w historii postów.
+  - Formularz tworzenia posta zawiera pola na tytuł, kategorię oraz prompt użytkownika (krótki opis posta z datą i kontekstem). Dodatkowo zawiera suwak do wyboru długości posta (krótki / średni / długi) oraz przycisk „Generuj”, który uruchamia generowanie finalnej wersji posta przy użyciu OpenRouter (GPT-4o mini).
+  - Dodane tytuły, kategorie oraz finalna treść wygenerowanego posta są zapisywane i widoczne w historii postów użytkownika.
 
 - ID: US-007
   Tytuł: Zarządzanie kategoriami
