@@ -8,7 +8,8 @@
     "eslint:fix": "eslint . --fix",
     "prepare": "husky",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "supabase:types": "supabase gen types typescript --local > src/utils/supabase/database.types.ts"
   },
   "lint-staged": {
     "*.{ts,tsx,js,cjs,mjs,jsx,json,html,css}": [

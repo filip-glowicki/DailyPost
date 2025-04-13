@@ -26,6 +26,7 @@ When introducing changes to the project, always follow the directory structure b
 - `./src/actions.ts` - Next.js server actions
 - `./src/middleware.ts` - Next.js middleware
 - `./src/utils/supabase` - Supabase utils (configuration, supabase middleware)
+- `./src/utils/supabase/database.types.ts` - Supabase database types
 - `./src/utils/utils.ts` -  Shared reusable utility function for both backend and frontend
 - `./src/types.ts` - Shared types for backend and frontend 
 - `./src/components` - Client-side and Server-side Components written React
