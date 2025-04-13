@@ -6,6 +6,7 @@ DailyPost is a modern application for creating, editing, and managing posts usin
 
 - [Project Description](#project-description)
 - [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
 - [Getting Started Locally](#getting-started-locally)
 - [Available Scripts](#available-scripts)
 - [Project Scope](#project-scope)
@@ -22,6 +23,17 @@ DailyPost is designed to simplify the post creation and management workflow by i
 - **Backend:** Supabase (PostgreSQL, Authentication, Backend-as-a-Service)
 - **AI Integration:** OpenRouter.ai (utilizing GPT-4o mini for content generation)
 - **CI/CD & Deployment:** GitHub Actions, Coolify
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Docker Desktop**: Required for running Supabase locally
+  - [Install Docker Desktop for Mac](https://docs.docker.com/desktop/setup/install/mac-install/)
+  - [Install Docker Desktop for other platforms](https://docs.docker.com/desktop/install/linux-install/)
+- **Supabase CLI**: Required for local development and database migrations
+  - [Install Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started)
+- **Node.js**: Version v23.11.0 (see .nvmrc)
 
 ## Getting Started Locally
 
@@ -41,13 +53,27 @@ DailyPost is designed to simplify the post creation and management workflow by i
    ```bash
    pnpm install
    ```
-4. **Configure Supabase Environment Variables:**
-   Create a `.env` file in the project root and add your Supabase credentials. For example:
+4. **Set up local Supabase:**
+
    ```bash
-   SUPABASE_URL=your_supabase_url
-   SUPABASE_ANON_KEY=your_supabase_anon_key
+   # Initialize Supabase project
+   supabase init
+
+   # Apply database migrations
+   supabase migration up
+
+   # Start local Supabase instance
+   supabase start
    ```
-   Replace the placeholder values with your actual Supabase details.
+
+   After starting Supabase locally, you'll receive local credentials. Use these for local development:
+
+   ```bash
+   # Example local environment variables (actual values will be shown after supabase start)
+   SUPABASE_URL=http://localhost:54321
+   SUPABASE_ANON_KEY=your-local-anon-key
+   ```
+
 5. **Run the development server:**
    ```bash
    pnpm run dev
