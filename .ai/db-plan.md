@@ -11,6 +11,7 @@
 ### Categories
 
 - **id**: UUID, PRIMARY KEY, DEFAULT gen_random_uuid()
+- **user_id**: UUID, NULL, FOREIGN KEY REFERENCES Users(id)
 - **name**: TEXT, NOT NULL, UNIQUE
 - **description**: TEXT, NOT NULL, CHECK (char_length(description) <= 250)
 
@@ -64,6 +65,10 @@ Na tabeli `Posts` utworzono indeksy w celu optymalizacji zapytań:
 ### Tabela Error_logs
 
 - Dostęp do tabeli Error_logs jest ograniczony wyłącznie do operacji systemowych, z wykluczeniem dostępu dla zwykłych użytkowników.
+
+### Tabela Categories
+
+- Wdrożone polityki RLS zapewniające, że kategorie użytkownika (z `user_id` nie będącym NULL) mogą być modyfikowane tylko przez ich właściciela, natomiast globalne kategorie (z `user_id` NULL) są dostępne dla wszystkich użytkowników.
 
 ## 5. Dodatkowe uwagi
 

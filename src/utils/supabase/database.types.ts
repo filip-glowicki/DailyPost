@@ -39,16 +39,19 @@ export type Database = {
           description: string;
           id: string;
           name: string;
+          user_id: string | null;
         };
         Insert: {
           description: string;
           id?: string;
           name: string;
+          user_id?: string | null;
         };
         Update: {
           description?: string;
           id?: string;
           name?: string;
+          user_id?: string | null;
         };
         Relationships: [];
       };
