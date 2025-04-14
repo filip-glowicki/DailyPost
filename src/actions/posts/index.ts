@@ -1,0 +1,1 @@
+export { generatePost } from "./generate";
