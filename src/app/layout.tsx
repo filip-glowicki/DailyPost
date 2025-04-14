@@ -1,7 +1,7 @@
-import { EnvVarWarning } from "@/src/components/env-var-warning";
-import HeaderAuth from "@/src/components/header-auth";
-import { ThemeSwitcher } from "@/src/components/theme-switcher";
-import { hasEnvVars } from "@/src/utils/supabase/check-env-vars";
+import { EnvVarWarning } from "@/components/env-var-warning";
+import HeaderAuth from "@/components/header-auth";
+import { ThemeSwitcher } from "@/components/theme-switcher";
+import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
