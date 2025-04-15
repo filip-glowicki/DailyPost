@@ -85,7 +85,7 @@ Punkt końcowy służy do automatycznego generowania posta na podstawie przekaza
 ## 9. Etapy wdrożenia
 
 1. **Implementacja function server action:**
-   - Utworzenie endpointu w `src/actions.ts` odpowiadającego za obsługę POST /posts.
+   - Utworzenie endpointu w `src/post/generate.ts` odpowiadającego za obsługę POST /posts.
    - Odbieranie i walidacja danych wejściowych zgodnie z modelem `CreatePostCommand`.
 2. **Integracja z serwisem AI:**
    - Utworzenie adaptera klienta do komunikacji z serwisem AI (np. GPT-4o mini).
@@ -94,9 +94,3 @@ Punkt końcowy służy do automatycznego generowania posta na podstawie przekaza
    - Wstawienie nowego rekordu do tabeli `Posts` używając Supabase.
 4. **Logowanie błędów:**
    - Wdrożenie mechanizmu zapisu błędów do tabeli `Error_logs` przy krytycznych awariach.
-5. **Testy:**
-   - Opracowanie testów jednostkowych i integracyjnych dla całego przepływu, w tym walidacji, integracji z AI oraz operacji na bazie danych.
-6. **Dokumentacja:**
-   - Aktualizacja dokumentacji API i przekazanie wskazówek zespołowi programistów.
-7. **Deployment:**
-   - Wdrożenie na środowiskach testowych, monitorowanie wydajności oraz analiza logów w celu dalszej optymalizacji.
