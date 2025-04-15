@@ -23,7 +23,7 @@ When introducing changes to the project, always follow the directory structure b
 
 - `./src` - source code
 - `./src/app` - Next.js pages and page configuration
-- `./src/actions.ts` - Next.js server actions
+- `./src/actions/[resource]/[get/generate/update].ts` - Next.js server actions
 - `./src/middleware.ts` - Next.js middleware
 - `./src/utils/supabase` - Supabase utils (configuration, supabase middleware)
 - `./src/utils/supabase/database.types.ts` - Supabase database types
