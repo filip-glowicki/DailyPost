@@ -46,14 +46,7 @@
    - **Success Codes**: 200 OK
    - **Error Codes**: 400 Bad Request, 401 Unauthorized
 
-2. **GET /posts/{id}**
-
-   - **Description**: Retrieve a specific post by its ID.
-   - **Response**: Post object as defined above.
-   - **Success Codes**: 200 OK
-   - **Error Codes**: 404 Not Found, 401 Unauthorized
-
-3. **POST /posts**
+2. **POST /posts**
 
    - **Description**: Automatically generate a post using AI (e.g., GPT-4o mini).
    - **Request Body**:
@@ -72,7 +65,7 @@
    - **Success Codes**: 201 Created
    - **Error Codes**: 400 Bad Request, 401 Unauthorized, 500 Internal Server Error (for AI integration issues)
 
-4. **PUT /posts/{id}**
+3. **PUT /posts/{id}**
 
    - **Description**: Update an existing post.
    - **Request Body**: Fields to update (e.g., `title`, `prompt`, `size`, `content`, `category_id`).
@@ -84,7 +77,7 @@
    - **Success Codes**: 200 OK
    - **Error Codes**: 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found
 
-5. **DELETE /posts/{id}**
+4. **DELETE /posts/{id}**
 
    - **Description**: Delete a post.
    - **Business Logic**:
