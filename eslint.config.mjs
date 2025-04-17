@@ -8,7 +8,9 @@ const eslintConfig = [
   ...compat.config({
     extends: ["next/core-web-vitals", "next/typescript", "prettier"],
   }),
-  { ignores: ["node_modules", ".next", "src/components/ui/**"] },
+  {
+    ignores: ["node_modules", ".next", "src/hooks/use-toast.ts"],
+  },
 ];
 
 export default eslintConfig;
