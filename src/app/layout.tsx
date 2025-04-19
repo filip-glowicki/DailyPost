@@ -53,6 +53,9 @@ export default function RootLayout({
                     <Link href="/post/editor" className="hover:text-primary">
                       Generate Post
                     </Link>
+                    <Link href="/categories" className="hover:text-primary">
+                      Categories
+                    </Link>
                   </div>
                   <div className="flex flex-1 justify-end items-center gap-4">
                     {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
