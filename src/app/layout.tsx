@@ -14,8 +14,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "DailyPost - AI-Powered Content Creation",
+  description: "Create, edit and manage your posts with AI technology",
 };
 
 const geistSans = Geist({
@@ -40,11 +40,21 @@ export default function RootLayout({
           <main className="min-h-screen flex flex-col items-center">
             <div className="flex-1 w-full flex flex-col gap-20 items-center">
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-                <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-                  <div className="flex gap-5 items-center font-semibold">
-                    <Link href={"/"}>Next.js Supabase Starter</Link>
+                <div className="w-full container mx-auto py-8 flex justify-between items-center text-sm">
+                  <div className="flex flex-1 items-center gap-6">
+                    <Link href="/" className="font-bold text-lg">
+                      DailyPost
+                    </Link>
                   </div>
-                  <div className="flex gap-5">
+                  <div className="flex gap-4">
+                    <Link href="/posts/history" className="hover:text-primary">
+                      History
+                    </Link>
+                    <Link href="/post/editor" className="hover:text-primary">
+                      Generate Post
+                    </Link>
+                  </div>
+                  <div className="flex flex-1 justify-end items-center gap-4">
                     {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
                     <ThemeSwitcher />
                   </div>
