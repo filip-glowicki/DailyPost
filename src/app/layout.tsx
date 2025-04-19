@@ -6,6 +6,7 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import { Toaster } from "@/components/ui/toaster";
+import { PenLine, FolderTree, History } from "lucide-react";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -39,22 +40,37 @@ export default function RootLayout({
         >
           <main className="min-h-screen flex flex-col items-center">
             <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-                <div className="w-full container mx-auto py-8 flex justify-between items-center text-sm">
+              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+                <div className="w-full container mx-auto py-3 flex justify-between items-center text-sm">
                   <div className="flex flex-1 items-center gap-6">
-                    <Link href="/" className="font-bold text-lg">
+                    <Link
+                      href="/"
+                      className="font-bold text-xl hover:text-primary transition-colors"
+                    >
                       DailyPost
                     </Link>
                   </div>
-                  <div className="flex gap-4">
-                    <Link href="/posts/history" className="hover:text-primary">
-                      History
+                  <div className="flex gap-6">
+                    <Link
+                      href="/post/editor"
+                      className="flex items-center gap-2 hover:text-primary transition-colors"
+                    >
+                      <PenLine className="w-4 h-4" />
+                      <span>Generate Post</span>
                     </Link>
-                    <Link href="/post/editor" className="hover:text-primary">
-                      Generate Post
+                    <Link
+                      href="/categories"
+                      className="flex items-center gap-2 hover:text-primary transition-colors"
+                    >
+                      <FolderTree className="w-4 h-4" />
+                      <span>Categories</span>
                     </Link>
-                    <Link href="/categories" className="hover:text-primary">
-                      Categories
+                    <Link
+                      href="/posts/history"
+                      className="flex items-center gap-2 hover:text-primary transition-colors"
+                    >
+                      <History className="w-4 h-4" />
+                      <span>History</span>
                     </Link>
                   </div>
                   <div className="flex flex-1 justify-end items-center gap-4">
