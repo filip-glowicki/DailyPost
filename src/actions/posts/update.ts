@@ -12,7 +12,7 @@ const updatePostSchema = z.object({
   title: z.string().min(1).max(200).optional(),
   prompt: z.string().min(1).max(500).optional(),
   size: z.string().optional(),
-  content: z.string().min(1).max(1000).optional(),
+  content: z.string().min(1).max(5000).optional(),
   category_id: z.string().uuid().optional(),
 });
 

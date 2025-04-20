@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
 import { CreatePostCommand } from "@/types";
-import { generateContent } from "@/lib/ai";
+import { OpenRouterService } from "@/lib/ai";
 import { logError } from "@/utils/error-logger";
 import { ApiResponse, ApiResponseBuilder } from "@/utils/api-response";
 
@@ -38,9 +38,28 @@ export async function generatePost(
       return ApiResponseBuilder.unauthorized();
     }
 
-    // Generate content using AI
-    const content = await generateContent(
-      validatedData.prompt,
+    // Fetch category details
+    const { data: category, error: categoryError } = await supabase
+      .from("categories")
+      .select("name, description")
+      .eq("id", validatedData.category_id)
+      .single();
+
+    if (categoryError) {
+      return ApiResponseBuilder.internalError(
+        "Failed to fetch category details",
+      );
+    }
+
+    const enhancedPrompt = `
+Category: ${category.name}
+Category Description: ${category.description || "N/A"}
+User Prompt: ${validatedData.prompt}
+    `.trim();
+
+    const service = new OpenRouterService();
+    const response = await service.sendRequest(
+      enhancedPrompt,
       validatedData.size,
     );
 
@@ -49,7 +68,7 @@ export async function generatePost(
       .from("posts")
       .insert({
         ...validatedData,
-        content,
+        content: response.text,
         user_id: user.id,
       })
       .select()

@@ -25,7 +25,7 @@ const formSchema = z.object({
   prompt: z.string().max(500, "Prompt is too long").optional(),
   category_id: z.string().min(1, "Category is required"),
   size: z.string().optional(),
-  content: z.string().max(1000, "Content is too long").optional(),
+  content: z.string().max(5000, "Content is too long").optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -165,11 +165,11 @@ export function PostForm({
                     <Textarea
                       placeholder="Enter your post content"
                       className="min-h-[200px]"
-                      maxLength={1000}
+                      maxLength={5000}
                       {...field}
                     />
                     <div className="absolute bottom-2 right-2 text-sm text-gray-500">
-                      {field.value?.length || 0}/1000
+                      {field.value?.length || 0}/5000
                     </div>
                   </div>
                 </FormControl>
