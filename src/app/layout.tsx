@@ -6,7 +6,7 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import { Toaster } from "@/components/ui/toaster";
-import { PenLine, FolderTree, History } from "lucide-react";
+import NavLinks from "@/components/nav-links";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -50,29 +50,7 @@ export default function RootLayout({
                       DailyPost
                     </Link>
                   </div>
-                  <div className="flex gap-6">
-                    <Link
-                      href="/post/editor"
-                      className="flex items-center gap-2 hover:text-primary transition-colors"
-                    >
-                      <PenLine className="w-4 h-4" />
-                      <span>Generate Post</span>
-                    </Link>
-                    <Link
-                      href="/categories"
-                      className="flex items-center gap-2 hover:text-primary transition-colors"
-                    >
-                      <FolderTree className="w-4 h-4" />
-                      <span>Categories</span>
-                    </Link>
-                    <Link
-                      href="/posts/history"
-                      className="flex items-center gap-2 hover:text-primary transition-colors"
-                    >
-                      <History className="w-4 h-4" />
-                      <span>History</span>
-                    </Link>
-                  </div>
+                  <NavLinks />
                   <div className="flex flex-1 justify-end items-center gap-4">
                     {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
                     <ThemeSwitcher />
