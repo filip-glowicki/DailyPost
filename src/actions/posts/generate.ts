@@ -7,16 +7,33 @@ import { OpenRouterService } from "@/lib/ai";
 import { logError } from "@/utils/error-logger";
 import { ApiResponse, ApiResponseBuilder } from "@/utils/api-response";
 
-// Validation schema for post creation
-const createPostSchema = z.object({
+// Base schema for all posts
+const basePostSchema = z.object({
   title: z.string().min(1).max(200),
-  prompt: z.string().min(1).max(500),
-  size: z.string(),
   category_id: z.string().uuid(),
 });
 
+// Schema for AI-generated posts
+const aiPostSchema = basePostSchema.extend({
+  mode: z.literal("auto"),
+  prompt: z.string().min(1).max(500),
+  size: z.string(),
+});
+
+// Schema for manual posts
+const manualPostSchema = basePostSchema.extend({
+  mode: z.literal("manual"),
+  content: z.string().min(1).max(5000),
+});
+
+// Combined schema that validates either AI or manual posts
+const createPostSchema = z.discriminatedUnion("mode", [
+  aiPostSchema,
+  manualPostSchema,
+]);
+
 /**
- * Server action for generating and creating a new post using AI
+ * Server action for generating and creating a new post
  * @param input Post creation parameters
  * @returns ApiResponse with the created post or error details
  */
@@ -38,37 +55,52 @@ export async function generatePost(
       return ApiResponseBuilder.unauthorized();
     }
 
-    // Fetch category details
-    const { data: category, error: categoryError } = await supabase
-      .from("categories")
-      .select("name, description")
-      .eq("id", validatedData.category_id)
-      .single();
+    let postContent: string;
+    let prompt = "";
+    let size = "medium"; // Default size for manual posts
 
-    if (categoryError) {
-      return ApiResponseBuilder.internalError(
-        "Failed to fetch category details",
-      );
-    }
+    // If it's a manual post
+    if (validatedData.mode === "manual") {
+      postContent = validatedData.content;
+    } else {
+      // It's an AI-generated post
+      // Fetch category details for AI context
+      const { data: category, error: categoryError } = await supabase
+        .from("categories")
+        .select("name, description")
+        .eq("id", validatedData.category_id)
+        .single();
 
-    const enhancedPrompt = `
+      if (categoryError) {
+        return ApiResponseBuilder.internalError(
+          "Failed to fetch category details",
+        );
+      }
+
+      prompt = validatedData.prompt;
+      size = validatedData.size;
+
+      const enhancedPrompt = `
 Category: ${category.name}
 Category Description: ${category.description || "N/A"}
-User Prompt: ${validatedData.prompt}
-    `.trim();
+User Prompt: ${prompt}
+      `.trim();
 
-    const service = new OpenRouterService();
-    const response = await service.sendRequest(
-      enhancedPrompt,
-      validatedData.size,
-    );
+      const service = new OpenRouterService();
+      const response = await service.sendRequest(enhancedPrompt, size);
 
-    // Save post to database
+      postContent = response.text;
+    }
+
+    // Save post to database with required fields
     const { data: post, error: dbError } = await supabase
       .from("posts")
       .insert({
-        ...validatedData,
-        content: response.text,
+        title: validatedData.title,
+        category_id: validatedData.category_id,
+        content: postContent,
+        prompt,
+        size,
         user_id: user.id,
       })
       .select()
@@ -91,7 +123,14 @@ User Prompt: ${validatedData.prompt}
         additionalContext: {
           input: {
             ...input,
-            prompt: input.prompt.substring(0, 100), // Truncate prompt for logging
+            prompt:
+              typeof input === "object" && "prompt" in input
+                ? String(input.prompt).substring(0, 100)
+                : undefined,
+            content:
+              typeof input === "object" && "content" in input
+                ? String(input.content).substring(0, 100)
+                : undefined,
           },
         },
       });

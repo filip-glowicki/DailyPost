@@ -10,8 +10,16 @@ import { ApiResponse, ApiResponseBuilder } from "@/utils/api-response";
 const updatePostSchema = z.object({
   id: z.string().uuid(),
   title: z.string().min(1).max(200).optional(),
-  prompt: z.string().min(1).max(500).optional(),
-  size: z.string().optional(),
+  prompt: z
+    .string()
+    .min(1)
+    .max(500)
+    .transform((str) => str || undefined)
+    .optional(),
+  size: z
+    .string()
+    .transform((str) => str || undefined)
+    .optional(),
   content: z.string().min(1).max(5000).optional(),
   category_id: z.string().uuid().optional(),
 });

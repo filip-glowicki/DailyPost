@@ -26,5 +26,10 @@ Komunikacja z modelami przez usługę Openrouter.ai:
 
 CI/CD i hosting
 
-- Github Actions do tworzenia pipeline’ów CI/CD.
+- Github Actions do tworzenia pipeline'ów CI/CD.
 - Coolify do hostowania aplikacji przez obraz Dockera na własnym VPS.
+
+## Testowanie
+
+- Testy jednostkowe: Vitest
+- Testy end-to-end (E2E): Playwright

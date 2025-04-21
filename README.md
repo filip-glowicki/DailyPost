@@ -87,8 +87,14 @@ Before you begin, ensure you have the following installed:
 - `pnpm run start` - Runs the production server.
 - `pnpm run eslint:fix` - Lints the codebase and automatically fixes issues with ESLint and Prettier.
 - `pnpm run prepare` - Sets up Husky for managing Git hooks.
-- `pnpm run test:e2e` - Executes end-to-end tests using Playwright.
-- `pnpm run test:e2e:ui` - Launches the Playwright test runner with a user interface.
+- `pnpm test` - Run all unit tests
+- `pnpm test:unit` - Run all unit tests
+- `pnpm test:unit:watch` - Run unit tests in watch mode
+- `pnpm test:unit:ui` - Run unit tests with UI for debugging
+- `pnpm test:unit:coverage` - Run unit tests with coverage report
+- `pnpm test:e2e` - Run E2E tests
+- `pnpm test:e2e:ui` - Run E2E tests with UI
+- `pnpm test:e2e:debug` - Run E2E tests in debug mode
 
 ## Project Scope
 
@@ -100,6 +106,15 @@ DailyPost is built with the following key features in mind:
 - **Secure Access:** Ensures safe user authentication and authorization via Supabase.
 - **Content Sharing:** Generates unique URLs for sharing posts on platforms like X (Twitter) and Facebook.
 - **User Notifications:** Provides real-time notifications for character limits and other essential updates.
+
+## Testing
+
+DailyPost uses the following testing technologies:
+
+- **Unit Tests:** Vitest with React Testing Library
+- **End-to-End (E2E) Tests:** Playwright
+
+For detailed instructions on running tests and test development guidelines, see [TESTING.md](TESTING.md).
 
 ## Project Status
 
