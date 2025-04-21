@@ -63,7 +63,11 @@ export function PostForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-6"
+        data-test-id="post-form"
+      >
         {!isEditMode && (
           <div className="flex items-center space-x-2">
             <Switch
@@ -71,6 +75,7 @@ export function PostForm({
               onCheckedChange={(checked) =>
                 onModeChange(checked ? "auto" : "manual")
               }
+              data-test-id="ai-generation-switch"
             />
             <Label>AI Generation {isAutoMode ? "Enabled" : "Disabled"}</Label>
           </div>
@@ -83,7 +88,11 @@ export function PostForm({
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="Enter post title" {...field} />
+                <Input
+                  placeholder="Enter post title"
+                  {...field}
+                  data-test-id="post-title-input"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,6 +132,7 @@ export function PostForm({
                         className="min-h-[100px]"
                         maxLength={500}
                         {...field}
+                        data-test-id="post-prompt-textarea"
                       />
                       <div className="absolute bottom-2 right-2 text-sm text-gray-500">
                         {field.value?.length || 0}/500
@@ -167,6 +177,7 @@ export function PostForm({
                       className="min-h-[200px]"
                       maxLength={5000}
                       {...field}
+                      data-test-id="post-content-textarea"
                     />
                     <div className="absolute bottom-2 right-2 text-sm text-gray-500">
                       {field.value?.length || 0}/5000
@@ -179,7 +190,11 @@ export function PostForm({
           />
         )}
 
-        <Button type="submit" disabled={isLoading}>
+        <Button
+          type="submit"
+          disabled={isLoading}
+          data-test-id="post-submit-button"
+        >
           {isLoading
             ? "Loading..."
             : isEditMode

@@ -23,7 +23,7 @@ export function LengthSlider({ value, onChange }: LengthSliderProps) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-test-id="post-length-slider">
       <Slider
         min={0}
         max={2}
@@ -31,10 +31,15 @@ export function LengthSlider({ value, onChange }: LengthSliderProps) {
         value={[currentIndex]}
         onValueChange={handleSliderChange}
         className="w-full"
+        data-test-id="post-length-slider-input"
       />
       <div className="flex justify-between text-sm text-muted-foreground">
         {lengthOptions.map((option) => (
-          <div key={option.value} className="text-center">
+          <div
+            key={option.value}
+            className="text-center"
+            data-test-id={`length-option-${option.value}`}
+          >
             <div className="font-medium">{option.label}</div>
             <div className="text-xs">{option.description}</div>
           </div>

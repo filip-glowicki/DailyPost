@@ -55,10 +55,21 @@ export function PostEditorView() {
     loadCategories();
   }, [toast]);
 
+  const cleanFormData = (data: FormData) => {
+    return Object.fromEntries(
+      Object.entries(data).filter(([_, value]) => value !== ""),
+    );
+  };
+
   const handleGeneratePost = async (data: FormData) => {
     try {
       setIsLoading(true);
-      const result = await generatePost(data as CreatePostCommand);
+      const cleanData = cleanFormData(data);
+      const result = await generatePost({
+        ...cleanData,
+        mode: mode === "edit" ? "manual" : mode,
+      } as CreatePostCommand);
+
       if (!result?.data) {
         throw new Error("Failed to generate post");
       }
@@ -83,8 +94,9 @@ export function PostEditorView() {
     if (!post?.id) return;
 
     try {
+      const cleanData = cleanFormData(data);
       const result = await updatePost({
-        ...data,
+        ...cleanData,
         id: post.id,
       } as UpdatePostCommand);
       if (!result?.data) {
@@ -114,7 +126,7 @@ export function PostEditorView() {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto" data-test-id="post-editor-view">
       <div className="bg-card mx-auto max-w-3xl rounded-lg shadow-lg p-8 space-y-8 border h-full relative">
         {isLoading && <LoadingOverlay />}
         {post ? (
@@ -126,6 +138,7 @@ export function PostEditorView() {
                   variant="outline"
                   onClick={() => setMode("edit")}
                   disabled={isLoading}
+                  data-test-id="modify-post-button"
                 >
                   Modify Post
                 </Button>
@@ -136,6 +149,7 @@ export function PostEditorView() {
                     setMode("auto");
                   }}
                   disabled={isLoading}
+                  data-test-id="create-new-post-button"
                 >
                   Create New Post
                 </Button>

@@ -33,14 +33,21 @@ export function CategorySelect({
   const categoryList = Array.isArray(categories) ? categories : categories.data;
 
   return (
-    <div className="flex gap-2 items-start">
+    <div className="flex gap-2 items-start" data-test-id="category-select">
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger
+          className="w-full"
+          data-test-id="category-select-trigger"
+        >
           <SelectValue placeholder="Select a category" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent data-test-id="category-select-content">
           {categoryList.map((category) => (
-            <SelectItem key={category.id} value={category.id}>
+            <SelectItem
+              key={category.id}
+              value={category.id}
+              data-test-id={`category-option-${category.id}`}
+            >
               {category.name}
             </SelectItem>
           ))}
@@ -52,6 +59,7 @@ export function CategorySelect({
         size="icon"
         onClick={handleAddNewCategory}
         title="Add new category"
+        data-test-id="add-category-button"
       >
         <PlusCircle className="h-4 w-4" />
       </Button>

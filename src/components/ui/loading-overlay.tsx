@@ -24,6 +24,7 @@ export function LoadingOverlay() {
     <div
       className="fixed inset-0 w-full h-full bg-background/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-6"
       style={{ position: "absolute", maxWidth: "100%" }}
+      data-test-id="loading-overlay"
     >
       <div className="flex items-center gap-2">
         <div className="flex space-x-3">
@@ -39,7 +40,10 @@ export function LoadingOverlay() {
           ))}
         </div>
       </div>
-      <p className="text-center text-sm text-muted-foreground animate-pulse">
+      <p
+        className="text-center text-sm text-muted-foreground animate-pulse"
+        data-test-id="loading-message"
+      >
         {message}
       </p>
     </div>

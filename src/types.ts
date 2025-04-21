@@ -38,24 +38,30 @@ export type PostDTO = Database["public"]["Tables"]["posts"]["Row"];
  * Command model for creating a new post via POST /posts.
  * It excludes fields that are generated automatically: "id", "content", "created_at", "updated_at", and "user_id".
  */
-export type CreatePostCommand = Omit<
-  Database["public"]["Tables"]["posts"]["Insert"],
-  "id" | "content" | "created_at" | "updated_at" | "user_id"
->;
+export interface CreatePostCommand {
+  title: string;
+  category_id: string;
+  mode: "auto" | "manual";
+  // For auto mode
+  prompt?: string;
+  size?: string;
+  // For manual mode
+  content?: string;
+}
 
 /**
  * Command model for updating an existing post via PUT /posts/{id}.
  * This allows updating the "title", "prompt", "size", "content", and "category_id".
  * The "id" field is required to identify the post to update.
  */
-export type UpdatePostCommand = {
+export interface UpdatePostCommand {
   id: string;
-} & Partial<
-  Pick<
-    Database["public"]["Tables"]["posts"]["Update"],
-    "title" | "prompt" | "size" | "content" | "category_id"
-  >
->;
+  title?: string;
+  category_id?: string;
+  content?: string;
+  prompt?: string;
+  size?: string;
+}
 
 /**
  * Command model for deleting a post via DELETE /posts/{id}.

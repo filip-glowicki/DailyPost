@@ -19,7 +19,7 @@ interface PostDisplayProps {
 
 export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
   return (
-    <Card className="w-full">
+    <Card className="w-full" data-test-id="post-display">
       <CardHeader className="space-y-1">
         <div className="flex items-center justify-between">
           <CardTitle className="text-2xl">{post.title}</CardTitle>
@@ -29,6 +29,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
               size="icon"
               onClick={() => onCopy(post.content)}
               title="Copy content"
+              data-test-id="copy-content-button"
             >
               <Copy className="h-4 w-4" />
             </Button>
@@ -37,6 +38,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
               size="icon"
               onClick={onEdit}
               title="Edit post"
+              data-test-id="edit-post-button"
             >
               <PenSquare className="h-4 w-4" />
             </Button>
@@ -44,7 +46,10 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
         </div>
       </CardHeader>
       <CardContent className="pt-4">
-        <div className="prose prose-sm dark:prose-invert max-w-none">
+        <div
+          className="prose prose-sm dark:prose-invert max-w-none"
+          data-test-id="post-content"
+        >
           {post.content.split("\n").map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
@@ -55,7 +60,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
           {post.prompt && (
             <>
               <span className="font-semibold">Prompt:</span>
-              <span>{post.prompt}</span>
+              <span data-test-id="post-prompt-display">{post.prompt}</span>
             </>
           )}
         </div>
