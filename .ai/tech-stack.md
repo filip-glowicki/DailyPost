@@ -5,7 +5,7 @@ Next.js jako kompleksowe rozwiązanie fullstackowe:
 - Next.js 15 umożliwia tworzenie szybkich, wydajnych stron i aplikacji.
 - React 19 do komponentów SSR i CSR.
 - TypeScript 5 zapewnia statyczne typowanie kodu i lepsze wsparcie w IDE.
-- Tailwind 4 umożliwia wygodne stylowanie aplikacji.
+- Tailwind 3 umożliwia wygodne stylowanie aplikacji.
 - Shadcn/ui dostarcza bibliotekę dostępnych komponentów React, na której oprzemy interfejs użytkownika.
 
 ## Backend

@@ -1,6 +1,9 @@
 {
   "name": "daily-post",
   "private": true,
+  "engines": {
+    "pnpm": "10.5.2"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

@@ -12,7 +12,7 @@ DailyPost is a modern application for creating, editing and managing posts using
 - Next.js 15
 - React 19
 - TypeScript 5
-- Tailwind 4
+- Tailwind 3
 - Shadcn/ui
 - Supabase
 
