@@ -86,6 +86,7 @@ Before you begin, ensure you have the following installed:
 - `pnpm run build` - Builds the application for production deployment.
 - `pnpm run start` - Runs the production server.
 - `pnpm run eslint:fix` - Lints the codebase and automatically fixes issues with ESLint and Prettier.
+- `pnpm run type-check` - Runs TypeScript type checking and ESLint to validate code quality.
 - `pnpm run prepare` - Sets up Husky for managing Git hooks.
 - `pnpm test` - Run all unit tests
 - `pnpm test:unit` - Run all unit tests
