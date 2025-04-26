@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ShareButton } from "@/components/post/ShareButton";
 
 interface PostDisplayProps {
   post: PostDTO;
@@ -55,7 +56,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
           ))}
         </div>
       </CardContent>
-      <CardFooter className="text-sm text-muted-foreground">
+      <CardFooter className="flex justify-between text-sm text-muted-foreground">
         <div className="flex gap-2">
           {post.prompt && (
             <>
@@ -64,6 +65,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
             </>
           )}
         </div>
+        <ShareButton title={post.title} content={post.content} />
       </CardFooter>
     </Card>
   );

@@ -35,6 +35,7 @@ import { PostForm } from "@/components/post/PostForm";
 import { toast } from "@/hooks/use-toast";
 import { updatePost } from "@/actions/posts";
 import type { UpdatePostCommand, CategoriesResponseDTO } from "@/types";
+import { ShareButton } from "@/components/post/ShareButton";
 
 interface PostsListProps {
   posts: PostDTO[];
@@ -128,30 +129,28 @@ export function PostsList({
               </Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="destructive" size="sm">
+                  <Button variant="outline" size="sm">
                     <Trash2 className="mr-2 h-4 w-4" />
                     Delete
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Delete Post</AlertDialogTitle>
+                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Are you sure you want to delete this post? This action
-                      cannot be undone.
+                      This action cannot be undone. This will permanently delete
+                      your post.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={() => onDelete(post.id)}
-                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                    >
+                    <AlertDialogAction onClick={() => onDelete(post.id)}>
                       Delete
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
+              <ShareButton title={post.title} content={post.content} />
             </CardFooter>
           </Card>
         ))}
