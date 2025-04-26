@@ -142,6 +142,7 @@ export function PostEditorView() {
                   onClick={() => setMode("edit")}
                   disabled={isLoading}
                   data-test-id="modify-post-button"
+                  aria-label="Modyfikuj aktualny post"
                 >
                   Modyfikuj post
                 </Button>
@@ -153,6 +154,7 @@ export function PostEditorView() {
                   }}
                   disabled={isLoading}
                   data-test-id="create-new-post-button"
+                  aria-label="Utwórz nowy post"
                 >
                   Utwórz nowy post
                 </Button>

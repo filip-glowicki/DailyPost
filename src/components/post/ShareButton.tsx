@@ -28,7 +28,7 @@ export function ShareButton({ title, content }: ShareButtonProps) {
         title: "Sukces",
         description: "Post został udostępniony na Twitter",
       });
-    } catch (error) {
+    } catch {
       toast({
         title: "Błąd",
         description: "Nie udało się udostępnić posta na Twitter",
@@ -43,9 +43,10 @@ export function ShareButton({ title, content }: ShareButtonProps) {
       size="sm"
       onClick={handleShare}
       title="Udostępnij na Twitter"
+      aria-label="Udostępnij post na Twitter"
       data-test-id="share-twitter-button"
     >
-      <Share className="mr-2 h-4 w-4" />
+      <Share className="mr-2 h-4 w-4" aria-hidden="true" />
       Udostępnij
     </Button>
   );

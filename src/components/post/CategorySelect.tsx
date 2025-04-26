@@ -37,6 +37,7 @@ export function CategorySelect({
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger
           className="w-full"
+          aria-label="Wybierz kategorię"
           data-test-id="category-select-trigger"
         >
           <SelectValue placeholder="Wybierz kategorię" />

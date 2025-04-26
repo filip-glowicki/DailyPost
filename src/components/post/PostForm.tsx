@@ -78,11 +78,10 @@ export function PostForm({
               onCheckedChange={(checked) =>
                 onModeChange(checked ? "auto" : "manual")
               }
+              aria-label="Generowanie AI"
               data-test-id="ai-generation-switch"
             />
-            <Label>
-              Generowanie AI {isAutoMode ? "Włączone" : "Wyłączone"}
-            </Label>
+            <Label>Generowanie AI</Label>
           </div>
         )}
 

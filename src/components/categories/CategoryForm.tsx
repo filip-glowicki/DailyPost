@@ -78,9 +78,14 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nazwa</FormLabel>
+              <FormLabel htmlFor="category-name">Nazwa</FormLabel>
               <FormControl>
-                <Input placeholder="Wpisz nazwę kategorii" {...field} />
+                <Input
+                  id="category-name"
+                  placeholder="Wpisz nazwę kategorii"
+                  aria-label="Nazwa kategorii"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -93,17 +98,20 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
           render={({ field }) => (
             <FormItem>
               <div className="flex justify-between items-center">
-                <FormLabel>Opis</FormLabel>
+                <FormLabel htmlFor="category-description">Opis</FormLabel>
                 <span
                   className={`text-sm ${descriptionLength > MAX_DESCRIPTION_LENGTH ? "text-destructive" : "text-muted-foreground"}`}
+                  aria-label={`${descriptionLength} z ${MAX_DESCRIPTION_LENGTH} znaków`}
                 >
                   {descriptionLength}/{MAX_DESCRIPTION_LENGTH}
                 </span>
               </div>
               <FormControl>
                 <Textarea
+                  id="category-description"
                   placeholder="Wpisz opis kategorii"
                   className="resize-none"
+                  aria-label="Opis kategorii"
                   {...field}
                 />
               </FormControl>

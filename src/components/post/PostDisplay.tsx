@@ -29,7 +29,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
               variant="outline"
               size="icon"
               onClick={() => onCopy(post.content)}
-              title="Kopiuj treść"
+              aria-label="Kopiuj treść posta"
               data-test-id="copy-content-button"
             >
               <Copy className="h-4 w-4" />
@@ -38,7 +38,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
               variant="outline"
               size="icon"
               onClick={onEdit}
-              title="Edytuj post"
+              aria-label="Edytuj post"
               data-test-id="edit-post-button"
             >
               <PenSquare className="h-4 w-4" />

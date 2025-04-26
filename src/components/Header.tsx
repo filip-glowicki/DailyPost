@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { EnvVarWarning } from "./env-var-warning";
 import HeaderAuth from "./header-auth";
 import { ThemeSwitcher } from "./theme-switcher";
 import NavLinks from "./nav-links";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "./ui/sheet";
 
 export async function Header() {
@@ -25,15 +23,18 @@ export async function Header() {
 
         <div className="hidden md:flex items-center gap-4">
           <ThemeSwitcher />
-          {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
+          <HeaderAuth />
         </div>
 
         <div className="md:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Otwórz menu nawigacji"
+              >
                 <Menu className="h-6 w-6" />
-                <span className="sr-only">Otwórz menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px] p-6">
@@ -63,7 +64,7 @@ export async function Header() {
                 </div>
                 <div className="border-t mt-4 pt-6 flex justify-between items-center">
                   <ThemeSwitcher />
-                  {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
+                  <HeaderAuth />
                 </div>
               </div>
             </SheetContent>
