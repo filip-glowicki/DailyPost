@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
+import { pl } from "date-fns/locale";
 import { Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -111,9 +112,16 @@ export function PostsList({
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
               <CardDescription>
-                Utworzono {format(new Date(post.created_at), "PPP")}
-                {post.updated_at !== post.created_at &&
-                  ` • Zaktualizowano ${format(new Date(post.updated_at), "PPP")}`}
+                Utworzono{" "}
+                {format(new Date(post.created_at), "PPP", { locale: pl })}
+                {post.updated_at !== post.created_at && (
+                  <>
+                    <span className="block mt-1">
+                      Zaktualizowano{" "}
+                      {format(new Date(post.updated_at), "PPP", { locale: pl })}
+                    </span>
+                  </>
+                )}
               </CardDescription>
             </CardHeader>
             <CardContent>

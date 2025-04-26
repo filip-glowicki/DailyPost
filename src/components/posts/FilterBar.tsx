@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { toast } from "@/hooks/use-toast";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,56 +12,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { CategoryDTO, GetPostsQuery } from "@/types/database-types";
-import { getCategories } from "@/actions/categories";
 
 interface FilterBarProps {
   filters: GetPostsQuery;
   onFilterChange: (filters: Partial<GetPostsQuery>) => void;
   isLoading?: boolean;
+  categories: CategoryDTO[];
 }
 
 export function FilterBar({
   filters,
   onFilterChange,
   isLoading,
+  categories,
 }: FilterBarProps) {
-  const [categories, setCategories] = useState<CategoryDTO[]>([]);
   const [searchValue, setSearchValue] = useState(filters.search || "");
 
-  // Fetch categories on mount using server action
-  useEffect(() => {
-    async function loadCategories() {
-      try {
-        const result = await getCategories();
-        if (!result?.data) {
-          toast({
-            title: "Błąd",
-            description: "Nie udało się załadować kategorii: Brak danych",
-            variant: "destructive",
-          });
-          return;
-        }
-        setCategories(result.data.data);
-      } catch (error) {
-        toast({
-          title: "Błąd",
-          description:
-            error instanceof Error
-              ? `Błąd podczas pobierania kategorii: ${error.message}`
-              : "Wystąpił nieznany błąd podczas pobierania kategorii",
-          variant: "destructive",
-        });
-      }
-    }
-
-    loadCategories();
-  }, []);
-
-  // Handle search with debounce
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchValue !== filters.search) {
-        onFilterChange({ search: searchValue });
+        onFilterChange({ search: searchValue, page: 1 });
       }
     }, 500);
 
@@ -83,10 +52,14 @@ export function FilterBar({
       </div>
 
       <Select
+        defaultValue="all"
         value={filters.category_id || "all"}
-        onValueChange={(value) =>
-          onFilterChange({ category_id: value === "all" ? undefined : value })
-        }
+        onValueChange={(value) => {
+          onFilterChange({
+            category_id: value === "all" ? undefined : value,
+            page: 1,
+          });
+        }}
         disabled={isLoading}
       >
         <SelectTrigger className="w-[180px]">
@@ -138,10 +111,11 @@ export function FilterBar({
         onClick={() => {
           setSearchValue("");
           onFilterChange({
-            search: "",
+            search: undefined,
             category_id: undefined,
             sortBy: "created_at",
             order: "desc",
+            page: 1,
           });
         }}
         disabled={isLoading}
