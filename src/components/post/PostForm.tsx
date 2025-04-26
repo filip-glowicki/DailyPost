@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { CategoriesResponseDTO, PostDTO } from "@/types";
+import { CategoriesResponseDTO, PostDTO } from "@/types/database-types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,11 +21,14 @@ import { CategorySelect } from "./CategorySelect";
 import { LengthSlider } from "./LengthSlider";
 
 const formSchema = z.object({
-  title: z.string().min(1, "Title is required").max(200, "Title is too long"),
-  prompt: z.string().max(500, "Prompt is too long").optional(),
-  category_id: z.string().min(1, "Category is required"),
+  title: z
+    .string()
+    .min(1, "Tytuł jest wymagany")
+    .max(200, "Tytuł jest za długi"),
+  prompt: z.string().max(500, "Prompt jest za długi").optional(),
+  category_id: z.string().min(1, "Kategoria jest wymagana"),
   size: z.string().optional(),
-  content: z.string().max(5000, "Content is too long").optional(),
+  content: z.string().max(5000, "Treść jest za długa").optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -77,7 +80,9 @@ export function PostForm({
               }
               data-test-id="ai-generation-switch"
             />
-            <Label>AI Generation {isAutoMode ? "Enabled" : "Disabled"}</Label>
+            <Label>
+              Generowanie AI {isAutoMode ? "Włączone" : "Wyłączone"}
+            </Label>
           </div>
         )}
 
@@ -86,10 +91,10 @@ export function PostForm({
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>Tytuł</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Enter post title"
+                  placeholder="Wprowadź tytuł posta"
                   {...field}
                   data-test-id="post-title-input"
                 />
@@ -104,7 +109,7 @@ export function PostForm({
           name="category_id"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category</FormLabel>
+              <FormLabel>Kategoria</FormLabel>
               <FormControl>
                 <CategorySelect
                   categories={categories}
@@ -128,7 +133,7 @@ export function PostForm({
                   <FormControl>
                     <div className="relative">
                       <Textarea
-                        placeholder="Enter your prompt for AI generation"
+                        placeholder="Wprowadź prompt dla generacji AI"
                         className="min-h-[100px]"
                         maxLength={500}
                         {...field}
@@ -149,7 +154,7 @@ export function PostForm({
               name="size"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Post Length</FormLabel>
+                  <FormLabel>Długość posta</FormLabel>
                   <FormControl>
                     <LengthSlider
                       value={field.value ?? ""}
@@ -169,11 +174,11 @@ export function PostForm({
             name="content"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Content</FormLabel>
+                <FormLabel>Treść</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Textarea
-                      placeholder="Enter your post content"
+                      placeholder="Wprowadź treść posta"
                       className="min-h-[200px]"
                       maxLength={5000}
                       {...field}
@@ -196,12 +201,12 @@ export function PostForm({
           data-test-id="post-submit-button"
         >
           {isLoading
-            ? "Loading..."
+            ? "Ładowanie..."
             : isEditMode
-              ? "Save Changes"
+              ? "Zapisz zmiany"
               : isAutoMode
-                ? "Generate Post"
-                : "Save Post"}
+                ? "Generuj"
+                : "Zapisz"}
         </Button>
       </form>
     </Form>

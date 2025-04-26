@@ -1,6 +1,6 @@
 "use client";
 
-import { CategoryDTO, CategoriesResponseDTO } from "@/types";
+import { CategoryDTO, CategoriesResponseDTO } from "@/types/database-types";
 import {
   Select,
   SelectContent,
@@ -39,7 +39,7 @@ export function CategorySelect({
           className="w-full"
           data-test-id="category-select-trigger"
         >
-          <SelectValue placeholder="Select a category" />
+          <SelectValue placeholder="Wybierz kategorię" />
         </SelectTrigger>
         <SelectContent data-test-id="category-select-content">
           {categoryList.map((category) => (
@@ -58,7 +58,7 @@ export function CategorySelect({
         variant="outline"
         size="icon"
         onClick={handleAddNewCategory}
-        title="Add new category"
+        title="Dodaj nową kategorię"
         data-test-id="add-category-button"
       >
         <PlusCircle className="h-4 w-4" />

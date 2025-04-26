@@ -1,6 +1,6 @@
 "use client";
 
-import { CategoryDTO } from "@/types";
+import { CategoryDTO } from "@/types/database-types";
 import {
   Card,
   CardContent,

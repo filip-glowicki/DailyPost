@@ -2,10 +2,10 @@
 
 import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
-import { CreatePostCommand } from "@/types";
 import { OpenRouterService } from "@/lib/ai";
 import { logError } from "@/utils/error-logger";
 import { ApiResponse, ApiResponseBuilder } from "@/utils/api-response";
+import { CreatePostCommand } from "@/types/database-types";
 
 // Base schema for all posts
 const basePostSchema = z.object({
@@ -80,14 +80,13 @@ export async function generatePost(
       prompt = validatedData.prompt;
       size = validatedData.size;
 
-      const enhancedPrompt = `
-Category: ${category.name}
-Category Description: ${category.description || "N/A"}
-User Prompt: ${prompt}
-      `.trim();
-
       const service = new OpenRouterService();
-      const response = await service.sendRequest(enhancedPrompt, size);
+      const response = await service.sendRequest(prompt, size, {
+        category: {
+          name: category.name,
+          description: category.description,
+        },
+      });
 
       postContent = response.text;
     }

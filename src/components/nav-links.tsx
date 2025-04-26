@@ -19,21 +19,21 @@ export default async function NavLinks() {
         className="flex items-center gap-2 hover:text-primary transition-colors"
       >
         <PenLine className="w-4 h-4" />
-        <span>Generate Post</span>
+        <span>Generuj post</span>
       </Link>
       <Link
         href="/categories"
         className="flex items-center gap-2 hover:text-primary transition-colors"
       >
         <FolderTree className="w-4 h-4" />
-        <span>Categories</span>
+        <span>Kategorie</span>
       </Link>
       <Link
         href="/posts/history"
         className="flex items-center gap-2 hover:text-primary transition-colors"
       >
         <History className="w-4 h-4" />
-        <span>History</span>
+        <span>Historia</span>
       </Link>
     </div>
   );

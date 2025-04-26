@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import { PostEditorView } from "@/components/post/PostEditorView";
 
 export const metadata = {
-  title: "Post Editor - DailyPost",
-  description: "Create and edit your posts with AI assistance",
+  title: "Edytor Postów - DailyPost",
+  description: "Twórz i edytuj posty z pomocą AI",
 };
 
 export default function PostEditorPage() {

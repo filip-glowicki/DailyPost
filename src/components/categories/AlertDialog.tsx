@@ -1,6 +1,6 @@
 "use client";
 
-import { CategoryDTO } from "@/types";
+import { CategoryDTO } from "@/types/database-types";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog as BaseAlertDialog,
@@ -24,22 +24,20 @@ export function AlertDialog({ category, onConfirmDelete }: AlertDialogProps) {
     <BaseAlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="destructive" size="sm">
-          Delete
+          Usuń
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Category</AlertDialogTitle>
+          <AlertDialogTitle>Usuń kategorię</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete &quot;{category.name}&quot;? This
-            action cannot be undone.
+            Czy na pewno chcesz usunąć kategorię &quot;{category.name}&quot;?
+            Tej akcji nie można cofnąć.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirmDelete}>
-            Delete
-          </AlertDialogAction>
+          <AlertDialogCancel>Anuluj</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirmDelete}>Usuń</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </BaseAlertDialog>

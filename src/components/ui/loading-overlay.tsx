@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
 export function LoadingOverlay() {
-  const [message, setMessage] = useState("Preparing your request...");
+  const [message, setMessage] = useState("Przygotowywanie żądania...");
 
   useEffect(() => {
     const messages = [
-      "Preparing your request...",
-      "Generating content...",
-      "Almost there...",
-      "Finalizing...",
+      "Przygotowywanie żądania...",
+      "Generowanie treści...",
+      "Już prawie gotowe...",
+      "Finalizowanie...",
     ];
     let currentIndex = 0;
 

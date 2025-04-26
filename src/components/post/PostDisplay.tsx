@@ -1,6 +1,5 @@
 "use client";
 
-import { PostDTO } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Copy, PenSquare } from "lucide-react";
 import {
@@ -11,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ShareButton } from "@/components/post/ShareButton";
+import { PostDTO } from "@/types/database-types";
 
 interface PostDisplayProps {
   post: PostDTO;
@@ -29,7 +29,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
               variant="outline"
               size="icon"
               onClick={() => onCopy(post.content)}
-              title="Copy content"
+              title="Kopiuj treść"
               data-test-id="copy-content-button"
             >
               <Copy className="h-4 w-4" />
@@ -38,7 +38,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
               variant="outline"
               size="icon"
               onClick={onEdit}
-              title="Edit post"
+              title="Edytuj post"
               data-test-id="edit-post-button"
             >
               <PenSquare className="h-4 w-4" />
@@ -48,7 +48,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
       </CardHeader>
       <CardContent className="pt-4">
         <div
-          className="prose prose-sm dark:prose-invert max-w-none"
+          className="prose prose-sm dark:prose-invert max-w-none [&>p]:mb-4 [&>p]:mt-0 [&>p:last-child]:mb-0"
           data-test-id="post-content"
         >
           {post.content.split("\n").map((paragraph, index) => (
@@ -60,7 +60,7 @@ export function PostDisplay({ post, onEdit, onCopy }: PostDisplayProps) {
         <div className="flex gap-2">
           {post.prompt && (
             <>
-              <span className="font-semibold">Prompt:</span>
+              <span className="font-semibold">Polecenie:</span>
               <span data-test-id="post-prompt-display">{post.prompt}</span>
             </>
           )}

@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { CategoryDTO, GetPostsQuery } from "@/types";
+import type { CategoryDTO, GetPostsQuery } from "@/types/database-types";
 import { getCategories } from "@/actions/categories";
 
 interface FilterBarProps {
@@ -36,8 +36,8 @@ export function FilterBar({
         const result = await getCategories();
         if (!result?.data) {
           toast({
-            title: "Error",
-            description: "Failed to load categories: No data received",
+            title: "Błąd",
+            description: "Nie udało się załadować kategorii: Brak danych",
             variant: "destructive",
           });
           return;
@@ -45,11 +45,11 @@ export function FilterBar({
         setCategories(result.data.data);
       } catch (error) {
         toast({
-          title: "Error",
+          title: "Błąd",
           description:
             error instanceof Error
-              ? `Error fetching categories: ${error.message}`
-              : "An unknown error occurred while fetching categories",
+              ? `Błąd podczas pobierania kategorii: ${error.message}`
+              : "Wystąpił nieznany błąd podczas pobierania kategorii",
           variant: "destructive",
         });
       }
@@ -74,7 +74,7 @@ export function FilterBar({
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          placeholder="Search posts..."
+          placeholder="Szukaj postów..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           className="pl-9"
@@ -90,10 +90,10 @@ export function FilterBar({
         disabled={isLoading}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="All categories" />
+          <SelectValue placeholder="Wszystkie kategorie" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All categories</SelectItem>
+          <SelectItem value="all">Wszystkie kategorie</SelectItem>
           {categories.map((category) => (
             <SelectItem key={category.id} value={category.id}>
               {category.name}
@@ -108,12 +108,12 @@ export function FilterBar({
         disabled={isLoading}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Sort by" />
+          <SelectValue placeholder="Sortuj według" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="created_at">Created date</SelectItem>
-          <SelectItem value="updated_at">Updated date</SelectItem>
-          <SelectItem value="title">Title</SelectItem>
+          <SelectItem value="created_at">Data utworzenia</SelectItem>
+          <SelectItem value="updated_at">Data aktualizacji</SelectItem>
+          <SelectItem value="title">Tytuł</SelectItem>
         </SelectContent>
       </Select>
 
@@ -125,11 +125,11 @@ export function FilterBar({
         disabled={isLoading}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Order" />
+          <SelectValue placeholder="Kolejność" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="desc">Descending</SelectItem>
-          <SelectItem value="asc">Ascending</SelectItem>
+          <SelectItem value="desc">Malejąco</SelectItem>
+          <SelectItem value="asc">Rosnąco</SelectItem>
         </SelectContent>
       </Select>
 
@@ -146,7 +146,7 @@ export function FilterBar({
         }}
         disabled={isLoading}
       >
-        Reset
+        Resetuj
       </Button>
     </div>
   );

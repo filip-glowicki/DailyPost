@@ -20,12 +20,12 @@ import { Textarea } from "@/components/ui/textarea";
 const MAX_DESCRIPTION_LENGTH = 250;
 
 const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Nazwa jest wymagana"),
   description: z
     .string()
     .max(
       MAX_DESCRIPTION_LENGTH,
-      `Description must be at most ${MAX_DESCRIPTION_LENGTH} characters`,
+      `Opis musi mieć maksymalnie ${MAX_DESCRIPTION_LENGTH} znaków`,
     ),
 });
 
@@ -53,8 +53,8 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
       });
 
       toast({
-        title: "Success",
-        description: "Category created successfully.",
+        title: "Sukces",
+        description: "Kategoria została utworzona poprawnie.",
       });
 
       form.reset();
@@ -62,8 +62,8 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
     } catch {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to create category. Please try again.",
+        title: "Błąd",
+        description: "Nie udało się utworzyć kategorii. Spróbuj ponownie.",
       });
     }
   };
@@ -78,9 +78,9 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Nazwa</FormLabel>
               <FormControl>
-                <Input placeholder="Enter category name" {...field} />
+                <Input placeholder="Wpisz nazwę kategorii" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -93,7 +93,7 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
           render={({ field }) => (
             <FormItem>
               <div className="flex justify-between items-center">
-                <FormLabel>Description</FormLabel>
+                <FormLabel>Opis</FormLabel>
                 <span
                   className={`text-sm ${descriptionLength > MAX_DESCRIPTION_LENGTH ? "text-destructive" : "text-muted-foreground"}`}
                 >
@@ -102,7 +102,7 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
               </div>
               <FormControl>
                 <Textarea
-                  placeholder="Enter category description"
+                  placeholder="Wpisz opis kategorii"
                   className="resize-none"
                   {...field}
                 />
@@ -112,7 +112,7 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
           )}
         />
 
-        <Button type="submit">Create Category</Button>
+        <Button type="submit">Utwórz kategorię</Button>
       </form>
     </Form>
   );

@@ -52,17 +52,17 @@ export default async function AuthButton() {
     <div className="flex items-center gap-4">
       <form action={signOutAction}>
         <Button type="submit" variant={"outline"}>
-          Sign out
+          Wyloguj
         </Button>
       </form>
     </div>
   ) : (
     <div className="flex gap-2">
       <Button asChild size="sm" variant={"outline"}>
-        <Link href="/sign-in">Sign in</Link>
+        <Link href="/sign-in">Zaloguj</Link>
       </Button>
       <Button asChild size="sm" variant={"default"}>
-        <Link href="/sign-up">Sign up</Link>
+        <Link href="/sign-up">Zarejestruj</Link>
       </Button>
     </div>
   );

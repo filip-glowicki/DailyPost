@@ -30,11 +30,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { PostDTO } from "@/types";
+import type { PostDTO } from "@/types/database-types";
 import { PostForm } from "@/components/post/PostForm";
 import { toast } from "@/hooks/use-toast";
 import { updatePost } from "@/actions/posts";
-import type { UpdatePostCommand, CategoriesResponseDTO } from "@/types";
+import type {
+  UpdatePostCommand,
+  CategoriesResponseDTO,
+} from "@/types/database-types";
 import { ShareButton } from "@/components/post/ShareButton";
 
 interface PostsListProps {
@@ -74,15 +77,15 @@ export function PostsList({
       }
 
       toast({
-        title: "Success",
-        description: "Post updated successfully!",
+        title: "Sukces",
+        description: "Post został zaktualizowany!",
       });
       setEditingPost(null);
       onPostUpdate();
     } catch {
       toast({
-        title: "Error",
-        description: "Failed to update post. Please try again.",
+        title: "Błąd",
+        description: "Nie udało się zaktualizować posta. Spróbuj ponownie.",
         variant: "destructive",
       });
     } finally {
@@ -94,7 +97,7 @@ export function PostsList({
     return (
       <Card>
         <CardContent className="py-8 text-center text-muted-foreground">
-          No posts found. Try adjusting your filters.
+          Nie znaleziono postów. Spróbuj zmienić filtry.
         </CardContent>
       </Card>
     );
@@ -108,9 +111,9 @@ export function PostsList({
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
               <CardDescription>
-                Created {format(new Date(post.created_at), "PPP")}
+                Utworzono {format(new Date(post.created_at), "PPP")}
                 {post.updated_at !== post.created_at &&
-                  ` • Updated ${format(new Date(post.updated_at), "PPP")}`}
+                  ` • Zaktualizowano ${format(new Date(post.updated_at), "PPP")}`}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -125,27 +128,27 @@ export function PostsList({
                 onClick={() => setEditingPost(post)}
               >
                 <Edit className="mr-2 h-4 w-4" />
-                Edit
+                Edytuj
               </Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button variant="outline" size="sm">
                     <Trash2 className="mr-2 h-4 w-4" />
-                    Delete
+                    Usuń
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogTitle>Czy na pewno?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your post.
+                      Tej operacji nie można cofnąć. Ten post zostanie trwale
+                      usunięty.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel>Anuluj</AlertDialogCancel>
                     <AlertDialogAction onClick={() => onDelete(post.id)}>
-                      Delete
+                      Usuń
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
@@ -162,9 +165,9 @@ export function PostsList({
       >
         <DialogContent className="max-w-3xl">
           <DialogHeader>
-            <DialogTitle>Edit Post</DialogTitle>
+            <DialogTitle>Edytuj post</DialogTitle>
             <DialogDescription>
-              Make changes to your post below.
+              Wprowadź zmiany w swoim poście poniżej.
             </DialogDescription>
           </DialogHeader>
           {editingPost && (

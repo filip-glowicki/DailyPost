@@ -10,8 +10,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "DailyPost - AI-Powered Content Creation",
-  description: "Create, edit and manage your posts with AI technology",
+  title: "DailyPost - Tworzenie Treści z AI",
+  description: "Twórz, edytuj i zarządzaj postami z pomocą technologii AI",
 };
 
 const geistSans = Geist({

@@ -4,7 +4,11 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
 import { Pagination } from "@/components/posts/Pagination";
-import type { GetPostsQuery, PostDTO, CategoriesResponseDTO } from "@/types";
+import type {
+  GetPostsQuery,
+  PostDTO,
+  CategoriesResponseDTO,
+} from "@/types/database-types";
 import { FilterBar } from "@/components/posts/FilterBar";
 import { PostsList } from "@/components/posts/PostsList";
 import { deletePost, getPosts } from "@/actions/posts";
@@ -46,8 +50,8 @@ export function HistoryView() {
         setCategories(result.data);
       } catch {
         toast({
-          title: "Error",
-          description: "Failed to load categories",
+          title: "Błąd",
+          description: "Nie udało się załadować kategorii",
           variant: "destructive",
         });
       }
@@ -75,8 +79,8 @@ export function HistoryView() {
       setPagination(result.data.pagination);
     } catch {
       toast({
-        title: "Error",
-        description: "Failed to load posts",
+        title: "Błąd",
+        description: "Nie udało się załadować postów",
         variant: "destructive",
       });
     } finally {
@@ -142,14 +146,14 @@ export function HistoryView() {
         }
 
         toast({
-          title: "Success",
-          description: "Post deleted successfully",
+          title: "Sukces",
+          description: "Post został usunięty",
         });
         fetchPosts(currentFilters);
       } catch {
         toast({
-          title: "Error",
-          description: "Failed to delete post",
+          title: "Błąd",
+          description: "Nie udało się usunąć posta",
           variant: "destructive",
         });
       }
