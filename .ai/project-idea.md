@@ -6,7 +6,7 @@ Brak inspiracji do pisania codziennych postów, czy to na bloga, czy do mediów 
 
 ## Minimalny zestaw funkcji
 
-- Możliwość automatycznego generowania postów (GPT-4o mini) lub ręcznego tworzenia przez użytkownika.
+- Możliwość automatycznego generowania postów (GPT-4.1 mini) lub ręcznego tworzenia przez użytkownika.
 - Możliwość modyfikacji i usuwania istniejących postów.
 - Możliwość dodawania tagów podczas tworzenia lub edycji posta.
 - Dostęp do historii postów z możliwością sortowania i filtrowania, np. po tagach.

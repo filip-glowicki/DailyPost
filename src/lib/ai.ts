@@ -21,7 +21,7 @@ export class OpenRouterService {
     this.#apiToken = process.env.OPENROUTER_API_KEY || "";
     this.#baseUrl =
       process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
-    this.#defaultModel = "openai/gpt-4.1-nano";
+    this.#defaultModel = "openai/gpt-4.1-mini";
     this.#defaultModelParameters = {
       temperature: 1,
       max_tokens: 800,
