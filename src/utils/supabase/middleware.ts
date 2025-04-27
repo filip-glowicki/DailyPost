@@ -2,6 +2,56 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 import { Database } from "./database.types";
 
+const PROTECTED_ROUTES = [
+  "/post/editor",
+  "/posts/history",
+  "/categories",
+  "forgot-password",
+] as const;
+const AUTH_ROUTES = ["/sign-in", "/sign-up"] as const;
+const DEFAULT_AUTHENTICATED_REDIRECT = "/post/editor";
+const DEFAULT_UNAUTHENTICATED_REDIRECT = "/sign-in";
+
+type ProtectedRoute = (typeof PROTECTED_ROUTES)[number];
+type AuthRoute = (typeof AUTH_ROUTES)[number];
+
+const isProtectedRoute = (pathname: string): pathname is ProtectedRoute => {
+  return PROTECTED_ROUTES.includes(pathname as ProtectedRoute);
+};
+
+const isAuthRoute = (pathname: string): pathname is AuthRoute => {
+  return AUTH_ROUTES.includes(pathname as AuthRoute);
+};
+
+const handleRouteAccess = (
+  pathname: string,
+  isAuthenticated: boolean,
+  requestUrl: string,
+): NextResponse | null => {
+  // Handle root path redirect for authenticated users
+  if (pathname === "/" && isAuthenticated) {
+    return NextResponse.redirect(
+      new URL(DEFAULT_AUTHENTICATED_REDIRECT, requestUrl),
+    );
+  }
+
+  // Handle protected routes
+  if (isProtectedRoute(pathname) && !isAuthenticated) {
+    return NextResponse.redirect(
+      new URL(DEFAULT_UNAUTHENTICATED_REDIRECT, requestUrl),
+    );
+  }
+
+  // Handle auth routes for authenticated users
+  if (isAuthRoute(pathname) && isAuthenticated) {
+    return NextResponse.redirect(
+      new URL(DEFAULT_AUTHENTICATED_REDIRECT, requestUrl),
+    );
+  }
+
+  return null;
+};
+
 export const updateSession = async (request: NextRequest) => {
   // This `try/catch` block is only here for the interactive tutorial.
   // Feel free to remove once you have Supabase connected.
@@ -36,23 +86,17 @@ export const updateSession = async (request: NextRequest) => {
       },
     );
 
-    // This will refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/server-side/nextjs
-    const user = await supabase.auth.getUser();
-    const protectedRoutes = [
-      "/post/editor",
-      "/posts/history",
-      "/categories",
-      "forgot-password",
-    ];
+    const { error } = await supabase.auth.getUser();
+    const isAuthenticated = !error;
 
-    // protected routes
-    if (protectedRoutes.includes(request.nextUrl.pathname) && user.error) {
-      return NextResponse.redirect(new URL("/sign-in", request.url));
-    }
+    const routeResponse = handleRouteAccess(
+      request.nextUrl.pathname,
+      isAuthenticated,
+      request.url,
+    );
 
-    if (request.nextUrl.pathname === "/" && !user.error) {
-      return NextResponse.redirect(new URL("/post/editor", request.url));
+    if (routeResponse) {
+      return routeResponse;
     }
 
     return response;

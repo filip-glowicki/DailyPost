@@ -5,8 +5,30 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
-export default async function Login(props: { searchParams: Promise<Message> }) {
-  const searchParams = await props.searchParams;
+interface SearchParams {
+  error?: string;
+  message?: string;
+}
+
+const getErrorMessage = (error: string) => {
+  if (error === "Invalid login credentials") {
+    return "Nieprawidłowy email lub hasło";
+  }
+  return error;
+};
+
+export default async function Login({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const params = await searchParams;
+  const message: Message = params.error
+    ? { error: getErrorMessage(decodeURIComponent(params.error)) }
+    : params.message
+      ? { message: decodeURIComponent(params.message) }
+      : { message: "" };
+
   return (
     <form className="flex-1 flex flex-col min-w-64" data-test-id="login-form">
       <h1 className="text-2xl font-medium">Logowanie</h1>
@@ -52,7 +74,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
         >
           Zaloguj się
         </SubmitButton>
-        <FormMessage message={searchParams} />
+        <FormMessage message={message} />
       </div>
     </form>
   );
