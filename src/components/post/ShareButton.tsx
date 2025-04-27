@@ -46,7 +46,7 @@ export function ShareButton({ title, content }: ShareButtonProps) {
       aria-label="Udostępnij post na Twitter"
       data-test-id="share-twitter-button"
     >
-      <Share className="mr-2 h-4 w-4" aria-hidden="true" />
+      <Share className="h-4 w-4" aria-hidden="true" />
       Udostępnij
     </Button>
   );

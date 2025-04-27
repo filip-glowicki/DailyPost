@@ -135,13 +135,13 @@ export function PostsList({
                 size="sm"
                 onClick={() => setEditingPost(post)}
               >
-                <Edit className="mr-2 h-4 w-4" />
+                <Edit className="h-4 w-4" />
                 Edytuj
               </Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button variant="outline" size="sm">
-                    <Trash2 className="mr-2 h-4 w-4" />
+                    <Trash2 className="h-4 w-4" />
                     Usuń
                   </Button>
                 </AlertDialogTrigger>

@@ -61,7 +61,7 @@ export function CategoriesView() {
 
   if (isLoading) {
     return (
-      <div className="space-y-8">
+      <div className="space-y-8 max-w-4xl mx-auto">
         <div className="space-y-4">
           <Skeleton className="h-10 w-full" />
           <Skeleton className="h-32 w-full" />
@@ -76,7 +76,7 @@ export function CategoriesView() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-4xl mx-auto">
       <CategoryForm onSuccess={fetchCategories} />
       <CategoryList categories={categories} onDelete={handleDelete} />
     </div>

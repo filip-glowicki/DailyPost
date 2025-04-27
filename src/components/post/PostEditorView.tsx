@@ -130,7 +130,7 @@ export function PostEditorView() {
   };
 
   return (
-    <div className="container mx-auto" data-test-id="post-editor-view">
+    <div className="container mx-auto mt-6" data-test-id="post-editor-view">
       <div className="bg-card mx-auto max-w-3xl rounded-lg shadow-lg p-8 space-y-8 border h-full relative">
         {isLoading && <LoadingOverlay />}
         {post ? (
