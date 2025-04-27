@@ -2,7 +2,7 @@
 
 ## 1. Przegląd produktu
 
-DailyPost to nowoczesna aplikacja umożliwiająca tworzenie, edycję i zarządzanie postami z wykorzystaniem technologii AI. Frontend opiera się na Next.js 15, React 19, TypeScript 5, Tailwind CSS 4 oraz bibliotece Shadcn/ui, co gwarantuje szybki, responsywny i estetyczny interfejs. Backend realizowany jest przy użyciu Supabase, który oferuje bazę danych PostgreSQL, mechanizmy autoryzacji oraz funkcjonalności Backend-as-a-Service. Integracja z openrouter.ai umożliwia komunikację z wieloma modelami AI, co pozwala na generowanie treści, a proces CI/CD wspierany jest przez Github Actions oraz wdrażanie przy użyciu Coolify.
+DailyPost to nowoczesna aplikacja umożliwiająca tworzenie, edycję i zarządzanie postami z wykorzystaniem technologii AI. Frontend opiera się na Next.js 15, React 19, TypeScript 5, Tailwind CSS 3 oraz bibliotece Shadcn/ui, co gwarantuje szybki, responsywny i estetyczny interfejs. Backend realizowany jest przy użyciu Supabase, który oferuje bazę danych PostgreSQL, mechanizmy autoryzacji oraz funkcjonalności Backend-as-a-Service. Integracja z openrouter.ai umożliwia komunikację z wieloma modelami AI, co pozwala na generowanie treści, a proces CI/CD wspierany jest przez Github Actions oraz wdrażanie przy użyciu Coolify.
 
 ## 2. Problem użytkownika
 

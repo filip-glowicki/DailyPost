@@ -19,7 +19,7 @@ DailyPost is designed to simplify the post creation and management workflow by i
 
 ## Tech Stack
 
-- **Frontend:** Next.js 15, React 19, TypeScript 5, Tailwind CSS 4, Shadcn/ui
+- **Frontend:** Next.js 15, React 19, TypeScript 5, Tailwind CSS 3, Shadcn/ui
 - **Backend:** Supabase (PostgreSQL, Authentication, Backend-as-a-Service)
 - **AI Integration:** OpenRouter.ai (utilizing GPT-4o mini for content generation)
 - **CI/CD & Deployment:** GitHub Actions, Coolify
