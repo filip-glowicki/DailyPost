@@ -2,7 +2,7 @@
 
 ## 1. Przegląd produktu
 
-DailyPost to nowoczesna aplikacja umożliwiająca tworzenie, edycję i zarządzanie postami z wykorzystaniem technologii AI. Frontend opiera się na Next.js 15, React 19, TypeScript 5, Tailwind CSS 4 oraz bibliotece Shadcn/ui, co gwarantuje szybki, responsywny i estetyczny interfejs. Backend realizowany jest przy użyciu Supabase, który oferuje bazę danych PostgreSQL, mechanizmy autoryzacji oraz funkcjonalności Backend-as-a-Service. Integracja z openrouter.ai umożliwia komunikację z wieloma modelami AI, co pozwala na generowanie treści, a proces CI/CD wspierany jest przez Github Actions oraz wdrażanie przy użyciu Coolify.
+DailyPost to nowoczesna aplikacja umożliwiająca tworzenie, edycję i zarządzanie postami z wykorzystaniem technologii AI. Frontend opiera się na Next.js 15, React 19, TypeScript 5, Tailwind CSS 3 oraz bibliotece Shadcn/ui, co gwarantuje szybki, responsywny i estetyczny interfejs. Backend realizowany jest przy użyciu Supabase, który oferuje bazę danych PostgreSQL, mechanizmy autoryzacji oraz funkcjonalności Backend-as-a-Service. Integracja z openrouter.ai umożliwia komunikację z wieloma modelami AI, co pozwala na generowanie treści, a proces CI/CD wspierany jest przez Github Actions oraz wdrażanie przy użyciu Coolify.
 
 ## 2. Problem użytkownika
 
@@ -16,7 +16,7 @@ Użytkownicy poszukują narzędzia, które umożliwi:
 
 ## 3. Wymagania funkcjonalne
 
-- Automatyczne generowanie postów przy użyciu modelu GPT-4o mini z możliwością dalszej edycji.
+- Automatyczne generowanie postów przy użyciu modelu GPT-4.1 mini z możliwością dalszej edycji.
 - Obsługa trybu automatycznego (domyślnie po zalogowaniu) oraz ręcznego tworzenia postów poprzez wyraźny switcher.
 - Funkcjonalność edycji i usuwania postów z pełną swobodą modyfikacji treści (bez przechowywania poprzednich wersji).
 - Dodawanie tytułu, kategorii (z predefiniowanej listy lub poprzez dodanie nowej) przy tworzeniu postu.
@@ -46,10 +46,10 @@ Użytkownicy poszukują narzędzia, które umożliwi:
 
 - ID: US-002
   Tytuł: Automatyczne generowanie postów
-  Opis: Jako użytkownik chcę, aby system automatycznie generował posty przy użyciu GPT-4o mini, co pozwoli mi szybko otrzymać bazowy tekst do dalszej edycji.
+  Opis: Jako użytkownik chcę, aby system automatycznie generował posty przy użyciu GPT-4.1 mini, co pozwoli mi szybko otrzymać bazowy tekst do dalszej edycji.
   Kryteria akceptacji:
 
-  - Po zalogowaniu użytkownik wybiera kategorię, wpisuje krótki opis posta (np. z datą i kontekstem), ustawia długość posta za pomocą suwaka (krótki / średni / długi), a następnie po kliknięciu „Generuj” system – wykorzystując integrację z OpenRouter (GPT-4o mini) – generuje finalną wersję posta
+  - Po zalogowaniu użytkownik wybiera kategorię, wpisuje krótki opis posta (np. z datą i kontekstem), ustawia długość posta za pomocą suwaka (krótki / średni / długi), a następnie po kliknięciu „Generuj” system – wykorzystując integrację z OpenRouter (GPT-4.1 mini) – generuje finalną wersję posta
   - Wygenerowany post jest wyświetlany z możliwością dalszej, swobodnej edycji.
 
 - ID: US-003
@@ -81,7 +81,7 @@ Użytkownicy poszukują narzędzia, które umożliwi:
   Opis: Jako użytkownik chcę móc przypisywać tytuły oraz kategorie do postów, aby ułatwić ich organizację i późniejsze wyszukiwanie.
   Kryteria akceptacji:
 
-  - Formularz tworzenia posta zawiera pola na tytuł, kategorię oraz prompt użytkownika (krótki opis posta z datą i kontekstem). Dodatkowo zawiera suwak do wyboru długości posta (krótki / średni / długi) oraz przycisk „Generuj”, który uruchamia generowanie finalnej wersji posta przy użyciu OpenRouter (GPT-4o mini).
+  - Formularz tworzenia posta zawiera pola na tytuł, kategorię oraz prompt użytkownika (krótki opis posta z datą i kontekstem). Dodatkowo zawiera suwak do wyboru długości posta (krótki / średni / długi) oraz przycisk „Generuj”, który uruchamia generowanie finalnej wersji posta przy użyciu OpenRouter (GPT-4.1 mini).
   - Dodane tytuły, kategorie oraz finalna treść wygenerowanego posta są zapisywane i widoczne w historii postów użytkownika.
 
 - ID: US-007

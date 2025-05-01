@@ -2,9 +2,9 @@
 
 import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
-import { DeletePostCommand } from "@/types";
 import { logError } from "@/utils/error-logger";
 import { ApiResponse, ApiResponseBuilder } from "@/utils/api-response";
+import { DeletePostCommand } from "@/types/database-types";
 
 // Validation schema for post deletion
 const deletePostSchema = z.object({

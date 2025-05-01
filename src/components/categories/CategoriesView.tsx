@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { CategoryDTO } from "@/types";
+import { CategoryDTO } from "@/types/database-types";
 import { getCategories, deleteCategory } from "@/actions/categories";
 import { useToast } from "@/hooks/use-toast";
 import { CategoryForm } from "@/components/categories/CategoryForm";
@@ -22,8 +22,8 @@ export function CategoriesView() {
     } catch {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to fetch categories. Please try again.",
+        title: "Błąd",
+        description: "Nie udało się pobrać kategorii. Spróbuj ponownie.",
       });
     } finally {
       setIsLoading(false);
@@ -43,16 +43,16 @@ export function CategoriesView() {
       try {
         await deleteCategory({ id });
         toast({
-          title: "Success",
-          description: "Category deleted successfully.",
+          title: "Sukces",
+          description: "Kategoria została usunięta.",
         });
       } catch {
         // Rollback on error
         setCategories(previousCategories);
         toast({
           variant: "destructive",
-          title: "Error",
-          description: "Failed to delete category. Please try again.",
+          title: "Błąd",
+          description: "Nie udało się usunąć kategorii. Spróbuj ponownie.",
         });
       }
     },
@@ -61,7 +61,7 @@ export function CategoriesView() {
 
   if (isLoading) {
     return (
-      <div className="space-y-8">
+      <div className="space-y-8 max-w-4xl mx-auto">
         <div className="space-y-4">
           <Skeleton className="h-10 w-full" />
           <Skeleton className="h-32 w-full" />
@@ -76,7 +76,7 @@ export function CategoriesView() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-4xl mx-auto">
       <CategoryForm onSuccess={fetchCategories} />
       <CategoryList categories={categories} onDelete={handleDelete} />
     </div>

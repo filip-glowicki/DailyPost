@@ -16,16 +16,17 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const MAX_DESCRIPTION_LENGTH = 250;
 
 const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Nazwa jest wymagana"),
   description: z
     .string()
     .max(
       MAX_DESCRIPTION_LENGTH,
-      `Description must be at most ${MAX_DESCRIPTION_LENGTH} characters`,
+      `Opis musi mieć maksymalnie ${MAX_DESCRIPTION_LENGTH} znaków`,
     ),
 });
 
@@ -53,8 +54,8 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
       });
 
       toast({
-        title: "Success",
-        description: "Category created successfully.",
+        title: "Sukces",
+        description: "Kategoria została utworzona poprawnie.",
       });
 
       form.reset();
@@ -62,8 +63,8 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
     } catch {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to create category. Please try again.",
+        title: "Błąd",
+        description: "Nie udało się utworzyć kategorii. Spróbuj ponownie.",
       });
     }
   };
@@ -71,49 +72,68 @@ export function CategoryForm({ onSuccess }: CategoryFormProps) {
   const descriptionLength = form.watch("description")?.length || 0;
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter category name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <Card>
+      <CardHeader>
+        <CardTitle>Dodaj nową kategorię</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <div className="grid gap-6 sm:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="category-name">Nazwa</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="category-name"
+                        placeholder="Wpisz nazwę kategorii"
+                        aria-label="Nazwa kategorii"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex justify-between items-center">
-                <FormLabel>Description</FormLabel>
-                <span
-                  className={`text-sm ${descriptionLength > MAX_DESCRIPTION_LENGTH ? "text-destructive" : "text-muted-foreground"}`}
-                >
-                  {descriptionLength}/{MAX_DESCRIPTION_LENGTH}
-                </span>
-              </div>
-              <FormControl>
-                <Textarea
-                  placeholder="Enter category description"
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-2">
+                    <div className="flex justify-between items-center">
+                      <FormLabel htmlFor="category-description">Opis</FormLabel>
+                      <span
+                        className={`text-sm ${descriptionLength > MAX_DESCRIPTION_LENGTH ? "text-destructive" : "text-muted-foreground"}`}
+                        aria-label={`${descriptionLength} z ${MAX_DESCRIPTION_LENGTH} znaków`}
+                      >
+                        {descriptionLength}/{MAX_DESCRIPTION_LENGTH}
+                      </span>
+                    </div>
+                    <FormControl>
+                      <Textarea
+                        id="category-description"
+                        placeholder="Wpisz opis kategorii"
+                        className="resize-none"
+                        aria-label="Opis kategorii"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-        <Button type="submit">Create Category</Button>
-      </form>
-    </Form>
+            <div className="flex justify-end">
+              <Button type="submit">Utwórz kategorię</Button>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   );
 }

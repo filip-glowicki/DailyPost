@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
-import { CreateCategoryCommand, CategoryDTO } from "@/types";
+import { CreateCategoryCommand, CategoryDTO } from "@/types/database-types";
 import { logError } from "@/utils/error-logger";
 import { ApiResponse, ApiResponseBuilder } from "@/utils/api-response";
 

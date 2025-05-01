@@ -28,7 +28,7 @@ When introducing changes to the project, always follow the directory structure b
 - `./src/utils/supabase` - Supabase utils (configuration, supabase middleware)
 - `./src/utils/supabase/database.types.ts` - Supabase database types
 - `./src/utils/utils.ts` -  Shared reusable utility function for both backend and frontend
-- `./src/types.ts` - Shared types for backend and frontend 
+- `./src/types` - Shared types for backend and frontend 
 - `./src/components` - Client-side and Server-side Components written React
 - `./src/components/ui` - Client-side components from Shadcn/ui
 - `./src/lib` - Services and helpers 

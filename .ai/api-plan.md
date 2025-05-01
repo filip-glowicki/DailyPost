@@ -48,7 +48,7 @@
 
 2. **POST /posts**
 
-   - **Description**: Automatically generate a post using AI (e.g., GPT-4o mini).
+   - **Description**: Automatically generate a post using AI (e.g., GPT-4.1 mini).
    - **Request Body**:
      ```json
      {
@@ -181,6 +181,6 @@
 ## 5. Assumptions and Considerations
 
 - The API is built within the Next.js framework leveraging Supabase as the backend service.
-- External AI integration delegates post content generation to the configured AI service (e.g., GPT-4o mini via OpenRouter).
+- External AI integration delegates post content generation to the configured AI service (e.g., GPT-4.1 mini via OpenRouter).
 - User authentication and authorization are managed primarily by Supabase Auth, with endpoints verifying ownership where necessary.
 - All endpoints adhere to RESTful principles, ensuring a clear separation between resources and their respective operations.

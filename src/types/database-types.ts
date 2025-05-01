@@ -1,4 +1,4 @@
-import type { Database } from "./utils/supabase/database.types";
+import type { Database } from "../utils/supabase/database.types";
 
 /**
  * DTO for Category as returned by GET /categories.

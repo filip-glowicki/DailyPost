@@ -8,9 +8,9 @@ interface LengthSliderProps {
 }
 
 const lengthOptions = [
-  { value: "short", label: "Short", description: "~300 words" },
-  { value: "medium", label: "Medium", description: "~500 words" },
-  { value: "long", label: "Long", description: "~800 words" },
+  { value: "short", label: "Krótki", description: "~300 słów" },
+  { value: "medium", label: "Średni", description: "~500 słów" },
+  { value: "long", label: "Długi", description: "~800 słów" },
 ];
 
 export function LengthSlider({ value, onChange }: LengthSliderProps) {

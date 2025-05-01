@@ -19,9 +19,9 @@ DailyPost is designed to simplify the post creation and management workflow by i
 
 ## Tech Stack
 
-- **Frontend:** Next.js 15, React 19, TypeScript 5, Tailwind CSS 4, Shadcn/ui
+- **Frontend:** Next.js 15, React 19, TypeScript 5, Tailwind CSS 3, Shadcn/ui
 - **Backend:** Supabase (PostgreSQL, Authentication, Backend-as-a-Service)
-- **AI Integration:** OpenRouter.ai (utilizing GPT-4o mini for content generation)
+- **AI Integration:** OpenRouter.ai (utilizing GPT-4.1 mini for content generation)
 - **CI/CD & Deployment:** GitHub Actions, Coolify
 
 ## Prerequisites
@@ -101,7 +101,7 @@ Before you begin, ensure you have the following installed:
 
 DailyPost is built with the following key features in mind:
 
-- **Automated Post Generation:** Uses GPT-4o mini via OpenRouter.ai to generate high-quality content automatically.
+- **Automated Post Generation:** Uses GPT-4.1 mini via OpenRouter.ai to generate high-quality content automatically.
 - **Dual Mode Operation:** Allows users to switch between automatic and manual post creation modes.
 - **Post Management:** Supports creating, editing, and deleting posts without maintaining previous versions.
 - **Secure Access:** Ensures safe user authentication and authorization via Supabase.

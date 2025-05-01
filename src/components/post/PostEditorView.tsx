@@ -6,7 +6,7 @@ import {
   PostDTO,
   CreatePostCommand,
   UpdatePostCommand,
-} from "@/types";
+} from "@/types/database-types";
 import { PostForm } from "@/components/post/PostForm";
 import { PostDisplay } from "@/components/post/PostDisplay";
 import { useToast } from "@/hooks/use-toast";
@@ -46,8 +46,9 @@ export function PostEditorView() {
       } catch {
         toast({
           variant: "destructive",
-          title: "Error",
-          description: "Failed to load categories. Please try again.",
+          title: "Błąd",
+          description:
+            "Nie udało się załadować kategorii. Proszę spróbować ponownie.",
         });
       }
     }
@@ -76,14 +77,15 @@ export function PostEditorView() {
 
       setPost(result.data as PostDTO);
       toast({
-        title: "Success",
-        description: "Post generated successfully!",
+        title: "Sukces",
+        description: "Post został wygenerowany!",
       });
     } catch {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to generate post. Please try again.",
+        title: "Błąd",
+        description:
+          "Nie udało się wygenerować posta. Proszę spróbować ponownie.",
       });
     } finally {
       setIsLoading(false);
@@ -104,15 +106,17 @@ export function PostEditorView() {
       }
 
       setPost(result.data as PostDTO);
+      setMode("auto");
       toast({
-        title: "Success",
-        description: "Post updated successfully!",
+        title: "Sukces",
+        description: "Post został zaktualizowany!",
       });
     } catch {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to update post. Please try again.",
+        title: "Błąd",
+        description:
+          "Nie udało się zaktualizować posta. Proszę spróbować ponownie.",
       });
     }
   };
@@ -126,21 +130,21 @@ export function PostEditorView() {
   };
 
   return (
-    <div className="container mx-auto" data-test-id="post-editor-view">
+    <div className="container mx-auto mt-6" data-test-id="post-editor-view">
       <div className="bg-card mx-auto max-w-3xl rounded-lg shadow-lg p-8 space-y-8 border h-full relative">
         {isLoading && <LoadingOverlay />}
         {post ? (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold">{post.title}</h2>
+            <div className="flex items-center justify-end">
               <div className="space-x-2">
                 <Button
                   variant="outline"
                   onClick={() => setMode("edit")}
                   disabled={isLoading}
                   data-test-id="modify-post-button"
+                  aria-label="Modyfikuj aktualny post"
                 >
-                  Modify Post
+                  Modyfikuj post
                 </Button>
                 <Button
                   variant="default"
@@ -150,8 +154,9 @@ export function PostEditorView() {
                   }}
                   disabled={isLoading}
                   data-test-id="create-new-post-button"
+                  aria-label="Utwórz nowy post"
                 >
-                  Create New Post
+                  Utwórz nowy post
                 </Button>
               </div>
             </div>
@@ -171,8 +176,8 @@ export function PostEditorView() {
                 onCopy={(content: string) => {
                   navigator.clipboard.writeText(content);
                   toast({
-                    title: "Success",
-                    description: "Content copied to clipboard!",
+                    title: "Sukces",
+                    description: "Treść została skopiowana do schowka!",
                   });
                 }}
               />

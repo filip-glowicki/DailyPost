@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { toast } from "@/hooks/use-toast";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,57 +11,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { CategoryDTO, GetPostsQuery } from "@/types";
-import { getCategories } from "@/actions/categories";
+import type { CategoryDTO, GetPostsQuery } from "@/types/database-types";
 
 interface FilterBarProps {
   filters: GetPostsQuery;
   onFilterChange: (filters: Partial<GetPostsQuery>) => void;
   isLoading?: boolean;
+  categories: CategoryDTO[];
 }
 
 export function FilterBar({
   filters,
   onFilterChange,
   isLoading,
+  categories,
 }: FilterBarProps) {
-  const [categories, setCategories] = useState<CategoryDTO[]>([]);
   const [searchValue, setSearchValue] = useState(filters.search || "");
 
-  // Fetch categories on mount using server action
-  useEffect(() => {
-    async function loadCategories() {
-      try {
-        const result = await getCategories();
-        if (!result?.data) {
-          toast({
-            title: "Error",
-            description: "Failed to load categories: No data received",
-            variant: "destructive",
-          });
-          return;
-        }
-        setCategories(result.data.data);
-      } catch (error) {
-        toast({
-          title: "Error",
-          description:
-            error instanceof Error
-              ? `Error fetching categories: ${error.message}`
-              : "An unknown error occurred while fetching categories",
-          variant: "destructive",
-        });
-      }
-    }
-
-    loadCategories();
-  }, []);
-
-  // Handle search with debounce
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchValue !== filters.search) {
-        onFilterChange({ search: searchValue });
+        onFilterChange({ search: searchValue, page: 1 });
       }
     }, 500);
 
@@ -74,7 +43,7 @@ export function FilterBar({
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          placeholder="Search posts..."
+          placeholder="Szukaj postów..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           className="pl-9"
@@ -83,17 +52,21 @@ export function FilterBar({
       </div>
 
       <Select
+        defaultValue="all"
         value={filters.category_id || "all"}
-        onValueChange={(value) =>
-          onFilterChange({ category_id: value === "all" ? undefined : value })
-        }
+        onValueChange={(value) => {
+          onFilterChange({
+            category_id: value === "all" ? undefined : value,
+            page: 1,
+          });
+        }}
         disabled={isLoading}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="All categories" />
+          <SelectValue placeholder="Wszystkie kategorie" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All categories</SelectItem>
+          <SelectItem value="all">Wszystkie kategorie</SelectItem>
           {categories.map((category) => (
             <SelectItem key={category.id} value={category.id}>
               {category.name}
@@ -108,12 +81,12 @@ export function FilterBar({
         disabled={isLoading}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Sort by" />
+          <SelectValue placeholder="Sortuj według" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="created_at">Created date</SelectItem>
-          <SelectItem value="updated_at">Updated date</SelectItem>
-          <SelectItem value="title">Title</SelectItem>
+          <SelectItem value="created_at">Data utworzenia</SelectItem>
+          <SelectItem value="updated_at">Data aktualizacji</SelectItem>
+          <SelectItem value="title">Tytuł</SelectItem>
         </SelectContent>
       </Select>
 
@@ -125,11 +98,11 @@ export function FilterBar({
         disabled={isLoading}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Order" />
+          <SelectValue placeholder="Kolejność" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="desc">Descending</SelectItem>
-          <SelectItem value="asc">Ascending</SelectItem>
+          <SelectItem value="desc">Malejąco</SelectItem>
+          <SelectItem value="asc">Rosnąco</SelectItem>
         </SelectContent>
       </Select>
 
@@ -138,15 +111,16 @@ export function FilterBar({
         onClick={() => {
           setSearchValue("");
           onFilterChange({
-            search: "",
+            search: undefined,
             category_id: undefined,
             sortBy: "created_at",
             order: "desc",
+            page: 1,
           });
         }}
         disabled={isLoading}
       >
-        Reset
+        Resetuj
       </Button>
     </div>
   );

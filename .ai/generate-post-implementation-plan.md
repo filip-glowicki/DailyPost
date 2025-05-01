@@ -2,7 +2,7 @@
 
 ## 1. Przegląd punktu końcowego
 
-Punkt końcowy służy do automatycznego generowania posta na podstawie przekazanego prompta przy użyciu zewnętrznego serwisu AI (np. GPT-4o mini). Implementacja wykorzysta server action Next.js, co pozwoli zredukować ilość kodu po stronie klienta oraz zapewni spójność aplikacji.
+Punkt końcowy służy do automatycznego generowania posta na podstawie przekazanego prompta przy użyciu zewnętrznego serwisu AI (np. GPT-4.1 mini). Implementacja wykorzysta server action Next.js, co pozwoli zredukować ilość kodu po stronie klienta oraz zapewni spójność aplikacji.
 
 ## 2. Szczegóły żądania
 
@@ -88,7 +88,7 @@ Punkt końcowy służy do automatycznego generowania posta na podstawie przekaza
    - Utworzenie endpointu w `src/post/generate.ts` odpowiadającego za obsługę POST /posts.
    - Odbieranie i walidacja danych wejściowych zgodnie z modelem `CreatePostCommand`.
 2. **Integracja z serwisem AI:**
-   - Utworzenie adaptera klienta do komunikacji z serwisem AI (np. GPT-4o mini).
+   - Utworzenie adaptera klienta do komunikacji z serwisem AI (np. GPT-4.1 mini).
    - Implementacja mechanizmu obsługi błędów oraz retry w przypadku niepowodzeń.
 3. **Operacja na bazie danych:**
    - Wstawienie nowego rekordu do tabeli `Posts` używając Supabase.

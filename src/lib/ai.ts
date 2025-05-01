@@ -1,36 +1,10 @@
-interface ModelParameters {
-  temperature?: number;
-  max_tokens?: number;
-  top_p?: number;
-}
-
-interface RequestOptions extends ModelParameters {
-  model?: string;
-}
-
-interface AdditionalInfo {
-  summary?: string;
-  wordCount?: number;
-  tone?: string;
-  [key: string]: string | number | undefined;
-}
-
-interface OpenRouterResponse {
-  text: string;
-  additionalInfo?: AdditionalInfo;
-}
-
-interface OpenRouterChoice {
-  message?: {
-    content: string;
-  };
-  content?: string;
-}
-
-interface OpenRouterApiResponse {
-  choices?: OpenRouterChoice[];
-  text?: string;
-}
+import {
+  OpenRouterResponse,
+  ModelParameters,
+  RequestOptions,
+  CategoryContext,
+  OpenRouterApiResponse,
+} from "@/types/ai-types";
 
 /**
  * OpenRouter service for generating AI content
@@ -47,7 +21,7 @@ export class OpenRouterService {
     this.#apiToken = process.env.OPENROUTER_API_KEY || "";
     this.#baseUrl =
       process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
-    this.#defaultModel = "openai/gpt-4.1-nano";
+    this.#defaultModel = "openai/gpt-4.1-mini";
     this.#defaultModelParameters = {
       temperature: 1,
       max_tokens: 800,
@@ -57,15 +31,32 @@ export class OpenRouterService {
   }
 
   /**
+   * Formats the prompt with category context
+   */
+  #formatPromptWithContext(prompt: string, category?: CategoryContext): string {
+    if (!category) return prompt;
+
+    return `
+Kategoria: ${category.name}
+Opis kategorii: ${category.description || "Brak opisu"}
+${prompt}
+    `.trim();
+  }
+
+  /**
    * Sends a request to generate content based on the provided prompt and options
    */
   public async sendRequest(
     prompt: string,
     size: string,
-    options?: RequestOptions,
+    options?: RequestOptions & { category?: CategoryContext },
   ): Promise<OpenRouterResponse> {
     try {
-      const payload = this.#createRequestPayload(prompt, size, options);
+      const enhancedPrompt = this.#formatPromptWithContext(
+        prompt,
+        options?.category,
+      );
+      const payload = this.#createRequestPayload(enhancedPrompt, size, options);
       const response = await fetch(`${this.#baseUrl}/chat/completions`, {
         method: "POST",
         headers: {
@@ -117,15 +108,15 @@ export class OpenRouterService {
     const sizeConfig = {
       short: {
         max_tokens: 300,
-        format: "Write a concise blog post in 1-2 paragraphs",
+        format: "Napisz zwięzły post w 1-2 akapitach",
       },
       medium: {
         max_tokens: 500,
-        format: "Write a detailed blog post in 3-4 paragraphs",
+        format: "Napisz szczegółowy post w 3-4 akapitach",
       },
       long: {
         max_tokens: 800,
-        format: "Write a comprehensive blog post in 5-6 paragraphs",
+        format: "Napisz obszerny post w 5-6 akapitach",
       },
     };
 
@@ -135,24 +126,23 @@ export class OpenRouterService {
 
     // Construct the system message with formatting instructions
     const systemMessage = `
-Follow these guidelines:
-- Format the content in clear paragraphs
-- Ensure the content is SEO-friendly
+Postępuj zgodnie z tymi wytycznymi:
+- Formatuj treść w przejrzyste akapity
+- Upewnij się, że treść jest przyjazna SEO
 - ${selectedSize.format}
-- Focus on providing valuable insights and information
-- Add tags at the end of the post
-- IMPORTANT: Strictly limit your response to ${selectedSize.max_tokens} tokens`;
+- Skup się na dostarczaniu wartościowych spostrzeżeń i informacji
+- Dodaj tagi na końcu posta
+- WAŻNE: Ściśle ogranicz swoją odpowiedź do ${selectedSize.max_tokens} tokenów`;
 
     // Construct the user message with prompt and metadata
-    const userMessage = `Create a social media post with the following details:
-Topic: ${prompt}
-Length: ${size} format (maximum ${selectedSize.max_tokens} tokens)
-Requirements: 
-- Maintain a clear and coherent structure
-- Include relevant examples and explanations
-- Ensure proper paragraph transitions
-- Make the content engaging and informative
-- Do not exceed the token limit`;
+    const userMessage = `Utwórz post w mediach społecznościowych z następującymi szczegółami:
+${prompt}
+Długość: format ${size} (maksymalnie ${selectedSize.max_tokens} tokenów)
+Wymagania: 
+- Zachowaj przejrzystą i spójną strukturę
+- Zapewnij płynne przejścia między akapitami
+- Stwórz angażującą i pouczającą treść
+- Nie przekraczaj limitu tokenów`;
 
     // Ensure max_tokens is strictly enforced
     const enforced_max_tokens = Math.min(
@@ -264,7 +254,7 @@ Requirements:
       return validatedResponse;
     } catch (error) {
       console.error("Failed to parse response:", error);
-      console.error("O  riginal response:", JSON.stringify(response, null, 2));
+      console.error("Original response:", JSON.stringify(response, null, 2));
       throw new Error(
         `Failed to parse response content: ${(error as Error).message}`,
       );

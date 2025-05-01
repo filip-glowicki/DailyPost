@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
+import { pl } from "date-fns/locale";
 import { Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,11 +31,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { PostDTO } from "@/types";
+import type { PostDTO } from "@/types/database-types";
 import { PostForm } from "@/components/post/PostForm";
 import { toast } from "@/hooks/use-toast";
 import { updatePost } from "@/actions/posts";
-import type { UpdatePostCommand, CategoriesResponseDTO } from "@/types";
+import type {
+  UpdatePostCommand,
+  CategoriesResponseDTO,
+} from "@/types/database-types";
+import { ShareButton } from "@/components/post/ShareButton";
 
 interface PostsListProps {
   posts: PostDTO[];
@@ -73,15 +78,15 @@ export function PostsList({
       }
 
       toast({
-        title: "Success",
-        description: "Post updated successfully!",
+        title: "Sukces",
+        description: "Post został zaktualizowany!",
       });
       setEditingPost(null);
       onPostUpdate();
     } catch {
       toast({
-        title: "Error",
-        description: "Failed to update post. Please try again.",
+        title: "Błąd",
+        description: "Nie udało się zaktualizować posta. Spróbuj ponownie.",
         variant: "destructive",
       });
     } finally {
@@ -93,7 +98,7 @@ export function PostsList({
     return (
       <Card>
         <CardContent className="py-8 text-center text-muted-foreground">
-          No posts found. Try adjusting your filters.
+          Nie znaleziono postów. Spróbuj zmienić filtry.
         </CardContent>
       </Card>
     );
@@ -107,9 +112,16 @@ export function PostsList({
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
               <CardDescription>
-                Created {format(new Date(post.created_at), "PPP")}
-                {post.updated_at !== post.created_at &&
-                  ` • Updated ${format(new Date(post.updated_at), "PPP")}`}
+                Utworzono{" "}
+                {format(new Date(post.created_at), "PPP", { locale: pl })}
+                {post.updated_at !== post.created_at && (
+                  <>
+                    <span className="block mt-1">
+                      Zaktualizowano{" "}
+                      {format(new Date(post.updated_at), "PPP", { locale: pl })}
+                    </span>
+                  </>
+                )}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -123,35 +135,33 @@ export function PostsList({
                 size="sm"
                 onClick={() => setEditingPost(post)}
               >
-                <Edit className="mr-2 h-4 w-4" />
-                Edit
+                <Edit className="h-4 w-4" />
+                Edytuj
               </Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="destructive" size="sm">
-                    <Trash2 className="mr-2 h-4 w-4" />
-                    Delete
+                  <Button variant="outline" size="sm">
+                    <Trash2 className="h-4 w-4" />
+                    Usuń
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Delete Post</AlertDialogTitle>
+                    <AlertDialogTitle>Czy na pewno?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Are you sure you want to delete this post? This action
-                      cannot be undone.
+                      Tej operacji nie można cofnąć. Ten post zostanie trwale
+                      usunięty.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={() => onDelete(post.id)}
-                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                    >
-                      Delete
+                    <AlertDialogCancel>Anuluj</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => onDelete(post.id)}>
+                      Usuń
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
+              <ShareButton title={post.title} content={post.content} />
             </CardFooter>
           </Card>
         ))}
@@ -163,9 +173,9 @@ export function PostsList({
       >
         <DialogContent className="max-w-3xl">
           <DialogHeader>
-            <DialogTitle>Edit Post</DialogTitle>
+            <DialogTitle>Edytuj post</DialogTitle>
             <DialogDescription>
-              Make changes to your post below.
+              Wprowadź zmiany w swoim poście poniżej.
             </DialogDescription>
           </DialogHeader>
           {editingPost && (

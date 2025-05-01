@@ -2,9 +2,10 @@
 
 import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
-import { UpdatePostCommand, PostDTO } from "@/types";
 import { logError } from "@/utils/error-logger";
 import { ApiResponse, ApiResponseBuilder } from "@/utils/api-response";
+import { PostDTO } from "@/types/database-types";
+import { UpdatePostCommand } from "@/types/database-types";
 
 // Validation schema for post updates
 const updatePostSchema = z.object({

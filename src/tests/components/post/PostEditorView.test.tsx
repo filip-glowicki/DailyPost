@@ -4,7 +4,7 @@ import { PostEditorView } from "@/components/post/PostEditorView";
 import * as categoriesActions from "@/actions/categories";
 import * as postsActions from "@/actions/posts";
 import * as toastHook from "@/hooks/use-toast";
-import { CategoriesResponseDTO, PostDTO } from "@/types";
+import { CategoriesResponseDTO, PostDTO } from "@/types/database-types";
 
 // Mock the required modules
 vi.mock("@/actions/categories", () => ({
@@ -150,8 +150,9 @@ describe("PostEditorView", () => {
     await waitFor(() => {
       expect(mockToast).toHaveBeenCalledWith({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to load categories. Please try again.",
+        title: "Błąd",
+        description:
+          "Nie udało się załadować kategorii. Proszę spróbować ponownie.",
       });
     });
   });
@@ -170,8 +171,8 @@ describe("PostEditorView", () => {
       expect(screen.getByTestId("post-display")).toBeInTheDocument();
       expect(screen.getByTestId("post-title")).toHaveTextContent("Test Post");
       expect(mockToast).toHaveBeenCalledWith({
-        title: "Success",
-        description: "Post generated successfully!",
+        title: "Sukces",
+        description: "Post został wygenerowany!",
       });
     });
   });
@@ -188,8 +189,9 @@ describe("PostEditorView", () => {
     await waitFor(() => {
       expect(mockToast).toHaveBeenCalledWith({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to generate post. Please try again.",
+        title: "Błąd",
+        description:
+          "Nie udało się wygenerować posta. Proszę spróbować ponownie.",
       });
       expect(screen.queryByTestId("post-display")).not.toBeInTheDocument();
     });
@@ -240,8 +242,8 @@ describe("PostEditorView", () => {
         category_id: "1",
       });
       expect(mockToast).toHaveBeenCalledWith({
-        title: "Success",
-        description: "Post updated successfully!",
+        title: "Sukces",
+        description: "Post został zaktualizowany!",
       });
     });
   });
@@ -273,8 +275,9 @@ describe("PostEditorView", () => {
     await waitFor(() => {
       expect(mockToast).toHaveBeenCalledWith({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to update post. Please try again.",
+        title: "Błąd",
+        description:
+          "Nie udało się zaktualizować posta. Proszę spróbować ponownie.",
       });
     });
   });
@@ -294,8 +297,8 @@ describe("PostEditorView", () => {
 
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith("Test Content");
     expect(mockToast).toHaveBeenCalledWith({
-      title: "Success",
-      description: "Content copied to clipboard!",
+      title: "Sukces",
+      description: "Treść została skopiowana do schowka!",
     });
   });
 

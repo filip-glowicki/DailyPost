@@ -56,13 +56,16 @@ export function Pagination({
               e.preventDefault();
               if (page > 1) onChange(page - 1);
             }}
+            aria-label="Przejdź do poprzedniej strony"
           />
         </PaginationItem>
 
         {paginationItems.map((item, i) =>
           item === "ellipsis" ? (
             <PaginationItem key={`ellipsis-${i}`}>
-              <PaginationEllipsis />
+              <PaginationEllipsis>
+                <span className="sr-only">Więcej stron</span>
+              </PaginationEllipsis>
             </PaginationItem>
           ) : (
             <PaginationItem key={item}>
@@ -73,6 +76,7 @@ export function Pagination({
                   e.preventDefault();
                   onChange(item);
                 }}
+                aria-label={`Przejdź do strony ${item}`}
               >
                 {item}
               </PaginationLink>
@@ -87,6 +91,7 @@ export function Pagination({
               e.preventDefault();
               if (page < totalPages) onChange(page + 1);
             }}
+            aria-label="Przejdź do następnej strony"
           />
         </PaginationItem>
       </PaginationContent>

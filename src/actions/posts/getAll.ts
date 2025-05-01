@@ -2,9 +2,10 @@
 
 import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
-import { GetPostsQuery, PaginatedPostsDTO } from "@/types";
 import { logError } from "@/utils/error-logger";
 import { ApiResponse, ApiResponseBuilder } from "@/utils/api-response";
+import { PaginatedPostsDTO } from "@/types/database-types";
+import { GetPostsQuery } from "@/types/database-types";
 
 // Validation schema for query parameters
 const getPostsQuerySchema = z.object({
