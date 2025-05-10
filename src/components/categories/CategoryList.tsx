@@ -21,7 +21,7 @@ export function CategoryList({ categories, onDelete }: CategoryListProps) {
       <Card className="bg-muted">
         <CardContent className="pt-6">
           <p className="text-center text-muted-foreground">
-            No categories found. Create your first category above.
+            Nie znaleziono żadnych kategorii. Utwórz pierwszą kategorię powyżej.
           </p>
         </CardContent>
       </Card>
