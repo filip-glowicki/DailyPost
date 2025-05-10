@@ -2,6 +2,20 @@
 
 DailyPost is a modern application for creating, editing, and managing posts using advanced AI technology. It streamlines the content creation process by automatically generating high-quality posts with customizable editing options, ensuring a seamless user experience.
 
+## Demo Videos
+
+The project includes demo videos that showcase the application's functionality:
+
+### MVP Demo
+
+[MVP Demo](demo/mvp.mov)
+
+### Proof of Concept Demo
+
+[POC Demo](demo/poc.mov)
+
+These videos are located in the `/demo` directory and provide a visual overview of the application's capabilities and user interface.
+
 ## Table of Contents
 
 - [Project Description](#project-description)
