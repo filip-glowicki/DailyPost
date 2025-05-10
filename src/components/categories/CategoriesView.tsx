@@ -15,7 +15,7 @@ export function CategoriesView() {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const response = await getCategories();
+      const response = await getCategories({ onlyUserCategories: true });
       if (response?.data) {
         setCategories(response.data.data);
       }
