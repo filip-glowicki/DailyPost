@@ -36,20 +36,17 @@ export default async function HistoryPage({
     getCategories(),
   ]);
 
-  if (!postsResult.data || !categoriesResult.data) {
-    console.log(postsResult, categoriesResult);
-    throw new Error("Failed to fetch data");
-  }
-
   return (
     <main className="container mx-auto py-8">
       <Suspense fallback={<PostsLoading />}>
-        <HistoryList
-          initialPosts={postsResult.data.data}
-          initialCategories={categoriesResult.data}
-          initialPagination={postsResult.data.pagination}
-          searchParams={params}
-        />
+        {postsResult?.data && categoriesResult?.data && (
+          <HistoryList
+            initialPosts={postsResult.data.data}
+            initialCategories={categoriesResult.data}
+            initialPagination={postsResult.data.pagination}
+            searchParams={params}
+          />
+        )}
       </Suspense>
     </main>
   );
