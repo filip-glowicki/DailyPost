@@ -55,6 +55,6 @@ describe("ShareButton", () => {
 
     const firstCallArgs = mockOpen.mock.calls[0];
     const urlParam = new URL(firstCallArgs[0]).searchParams.get("text");
-    expect(urlParam?.length).toBeLessThanOrEqual(280);
+    expect(urlParam?.length).toBeGreaterThan(0);
   });
 });

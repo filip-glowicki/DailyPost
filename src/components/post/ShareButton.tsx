@@ -15,8 +15,7 @@ export function ShareButton({ title, content }: ShareButtonProps) {
 
   const handleShare = useCallback(() => {
     try {
-      // Prepare the tweet text - truncate if too long
-      const tweetText = `${title}\n\n${content}`.slice(0, 280);
+      const tweetText = `${title}\n\n${content}`;
 
       // Create Twitter share URL
       const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;

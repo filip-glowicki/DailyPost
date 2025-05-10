@@ -1,40 +1,59 @@
 "use server";
 
+import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from "@/utils/utils";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const forgotPasswordAction = async (formData: FormData) => {
-  const email = formData.get("email")?.toString();
-  const supabase = await createClient();
-  const origin = (await headers()).get("origin");
-  const callbackUrl = formData.get("callbackUrl")?.toString();
+// Validation schema for forgot password
+const forgotPasswordSchema = z.object({
+  email: z.string().email("Wprowadź poprawny adres email"),
+  callbackUrl: z.string().optional(),
+});
 
-  if (!email) {
-    return encodedRedirect("error", "/forgot-password", "Email is required");
+export const forgotPasswordAction = async (formData: FormData) => {
+  // Extract form data
+  const formValues = {
+    email: formData.get("email")?.toString() || "",
+    callbackUrl: formData.get("callbackUrl")?.toString(),
+  };
+
+  // Validate data - catch any validation errors
+  const validationResult = forgotPasswordSchema.safeParse(formValues);
+  if (!validationResult.success) {
+    const errorMessage = validationResult.error.errors
+      .map((err) => err.message)
+      .join(", ");
+    return encodedRedirect("error", "/forgot-password", errorMessage);
   }
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/auth/callback?redirect_to=/protected/reset-password`,
-  });
+  const validatedData = validationResult.data;
+  const supabase = await createClient();
+  const origin = (await headers()).get("origin");
+
+  const { error } = await supabase.auth.resetPasswordForEmail(
+    validatedData.email,
+    {
+      redirectTo: `${origin}/auth/callback?redirect_to=/reset-password`,
+    },
+  );
 
   if (error) {
-    console.error(error.message);
     return encodedRedirect(
       "error",
       "/forgot-password",
-      "Could not reset password",
+      "Nie udało się zresetować hasła",
     );
   }
 
-  if (callbackUrl) {
-    return redirect(callbackUrl);
+  if (validatedData.callbackUrl) {
+    return redirect(validatedData.callbackUrl);
   }
 
   return encodedRedirect(
     "success",
     "/forgot-password",
-    "Check your email for a link to reset your password.",
+    "Sprawdź swoją pocztę e-mail, aby uzyskać link do zresetowania hasła.",
   );
 };
